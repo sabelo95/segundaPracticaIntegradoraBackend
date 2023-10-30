@@ -1,0 +1,20 @@
+[
+	{
+		"title": "nintento",
+		"description": "play station",
+		"price": 2000,
+		"thumbnail": "lalalal",
+		"code": 50,
+		"stock": 30,
+		"id": 0
+	},
+	{
+		"title": "play",
+		"description": "play station",
+		"price": 2000,
+		"thumbnail": "lalalal",
+		"code": 2,
+		"stock": 30,
+		"id": 1
+	}
+]
