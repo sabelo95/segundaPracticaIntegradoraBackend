@@ -6,7 +6,7 @@ const app=express()
 
 app.get('/products',(req, res)=>{
     const fs=require('fs')
-    let resultado = JSON.parse(fs.readFileSync('archivos/archivo.json', 'utf-8'));
+    let resultado = JSON.parse(fs.readFileSync('archivo.json', 'utf-8'));
      
    
     if(req.query.limit){
@@ -26,7 +26,7 @@ app.get('/products/:pid',(req,res)=>{
     }
 
     const fs=require('fs')
-    let resultado = JSON.parse(fs.readFileSync('archivos/archivo.json', 'utf-8')).find(prod=>prod.id===id);
+    let resultado = JSON.parse(fs.readFileSync('archivo.json', 'utf-8')).find(prod=>prod.id===id);
     res.setHeader('Content-Type','application/json');
     res.status(200).json({resultado});
 })

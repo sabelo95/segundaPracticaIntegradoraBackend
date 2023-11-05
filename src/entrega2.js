@@ -124,7 +124,7 @@ class ProductManager {
     }
 }    
 
-const manager = new ProductManager('archivos/archivo.json');
+const manager = new ProductManager('archivo.json');
 manager.addProduct('play','play station', 2000,'lalalal',3,30);
 manager.addProduct('play','play station', 2000,'lalalal',2,30);
 manager.updateProduct('xbox','xbox', 2000,'lalalal',2,30,1);
