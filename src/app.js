@@ -91,7 +91,7 @@ app.post('/products/:pid', (req, res) => {
     });
 
     if (updatedProducts) {
-        res.status(200).json({ message: 'Producto Modificado con éxito', updatedProducts });
+        res.status(200).json({ message: 'Producto Modificado con éxito' });
     } else {
         res.status(404).json({ error: 'Producto no encontrado' });
     }
