@@ -1,14 +1,9 @@
-const express=require('express')
-const ProductManager=require('./productsManager')
-const CartsManager=require('./cartsManager')
+const express = require('express');
+const fs = require('fs');
+const router = express.Router();
+const ProductManager=require('../productsManager')
 
-const PORT=8080
-const app=express()
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-
-
-/* app.get('/products',(req, res)=>{
+router.get('/products',(req, res)=>{
     const fs=require('fs')
     let resultado = JSON.parse(fs.readFileSync('products.json', 'utf-8'));
      
@@ -21,7 +16,7 @@ app.use(express.urlencoded({ extended: true }))
     res.status(200).json({filtros: req.query,resultado });
 })
 
-app.get('/products/:pid',(req,res)=>{
+router.get('/products/:pid',(req,res)=>{
 
     let id=req.params.pid
     id=parseInt(id)  
@@ -39,7 +34,7 @@ app.get('/products/:pid',(req,res)=>{
     };
 })
 
-app.post('/products', (req, res) => {
+router.post('/products', (req, res) => {
     const { title, description, code, price, stock, category, estado, thumbnail } = req.body;
     
 
@@ -64,7 +59,7 @@ app.post('/products', (req, res) => {
 
 })
 
-app.post('/products/:pid', (req, res) => {
+router.post('/products/:pid', (req, res) => {
     let id = req.params.pid;
     id = parseInt(id);
 
@@ -97,7 +92,7 @@ app.post('/products/:pid', (req, res) => {
     }
 });
 
-app.delete('/delete/:pid', (req, res) => {
+router.delete('/delete/:pid', (req, res) => {
     let id = req.params.pid;
     id = parseInt(id);
 
@@ -115,63 +110,6 @@ app.delete('/delete/:pid', (req, res) => {
     } else {
         res.status(404).json({ error: 'Producto no encontrado' });
     }
-});*/
+});
 
-const productRouter = require('./routes/products.router')
-
-    app.use('/api', productRouter);
-
-  
-  const cartManager = new CartsManager('carts.json');
-  
-  // Ruta para crear un nuevo carrito
-  app.post('/carts', (req, res) => {
-    const newCart = cartManager.createCart();
-    res.status(201).json(newCart);
-  });
-  
-  // Ruta para listar los productos de un carrito específico
-  app.get('/carts/:cid', (req, res) => {
-    
-    let id=req.params.cid
-    id=parseInt(id)  
-    if(isNaN(id)){
-        return res.send('Error, ingrese un argumento id numerico')
-    }
-
-    const fs=require('fs')
-    let resultado = JSON.parse(fs.readFileSync('carts.json', 'utf-8')).find(car=>car.id===id)
-    if (resultado === null || resultado === undefined) {
-        res.status(404).json('Carrito no encontrado');
-    } else {
-        res.setHeader('Content-Type', 'application/json');
-        res.status(200).json({ resultado });
-    }
-    
-})
-  
-  // Ruta para agregar un producto a un carrito específico
-  app.post('/carts/:cid/product/:pid', (req, res) => {
-    let productId = req.params.pid;
-    let id=req.params.cid
-    id=parseInt(id)  
-    if(isNaN(id)){
-        return res.send('Error, ingrese un argumento id numerico')
-    }
-
-    productId=parseInt(productId)  
-    if(isNaN(productId)){
-        return res.send('Error, ingrese un argumento id numerico')
-    }
-  
-    if (cartManager.addProductToCart(id, productId)) {
-      res.status(200).json({ message: 'Producto agregado al carrito con éxito' });
-    } else {
-      res.status(404).json({ error: 'Carrito no encontrado' });
-    }
-  });
-
-const server=app.listen(PORT, ()=>{
-    console.log(`Server on line en puerto ${PORT}`)
-}) 
-
+module.exports = router;
