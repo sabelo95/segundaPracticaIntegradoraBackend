@@ -29,26 +29,26 @@ class CartManager {
         const cart = cartData.find(car => car.id === cartId);
     
         if (!cart) {
-            return false; // Carrito no encontrado
+            return false; 
         }
     
         const existingProductIndex = cart.products.findIndex(product => product.id === productId);
     
         if (existingProductIndex !== -1) {
-            // Si el producto ya existe en el carrito, incrementa su cantidad
+            
             cart.products[existingProductIndex].quantity = (cart.products[existingProductIndex].quantity || 0) + 1;
         } else {
-            // Si el producto no existe, agrégalo al carrito
+           
             cart.products.push({ id: productId, quantity: 1 });
         }
     
-        // Encuentra el índice del carrito actual en el array de carritos
+        
         const cartIndex = cartData.findIndex(car => car.id === cartId);
     
-        // Actualiza el array de carritos con el carrito modificado
+        
         cartData[cartIndex] = cart;
     
-        // Escribe el archivo JSON actualizado
+        
         fs.writeFileSync('carts.json', JSON.stringify(cartData, null, '\t'));
     
         return true;

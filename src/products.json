@@ -7,7 +7,7 @@
 		"code": "123456",
 		"stock": 100,
 		"category": "Electrónicos",
-		"estado": false,
+		"estado": true,
 		"id": 0
 	},
 	{
@@ -15,32 +15,10 @@
 		"description": "Este es un producto de ejemplo",
 		"price": 19.99,
 		"thumbnail": "URL_de_la_imagen_del_producto",
-		"code": "123456",
+		"code": "lalalala",
 		"stock": 100,
 		"category": "Electrónicos",
 		"estado": true,
-		"id": 2
-	},
-	{
-		"title": "Ejemplo de Producto",
-		"description": "Este es un producto de ejemplo",
-		"price": 19.99,
-		"thumbnail": "URL_de_la_imagen_del_producto",
-		"code": "123456",
-		"stock": 100,
-		"category": "play station",
-		"estado": true,
-		"id": 2
-	},
-	{
-		"title": "Ejemplo de Producto",
-		"description": "Este es un producto de ejemplo",
-		"price": 19.99,
-		"thumbnail": "URL_de_la_imagen_del_producto",
-		"code": "123456",
-		"stock": 100,
-		"category": "play station",
-		"estado": true,
-		"id": 3
+		"id": 1
 	}
 ]
