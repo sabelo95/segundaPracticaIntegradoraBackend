@@ -35,17 +35,17 @@ router.get('/products/:pid',(req,res)=>{
 })
 
 router.post('/products', (req, res) => {
-    const { title, description, code, price, stock, category, estado, thumbnail } = req.body;
+    const { title, description, code, price, stock, category, /* estado,  */thumbnail } = req.body;
     
 
 
   
-    if (!title || !description || !code || !price || !stock || !category || !estado ) {
+    if (!title || !description || !code || !price || !stock || !category /* || !estado */ ) {
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     } 
   
     const manager = new ProductManager('products.json');
-    const addProduct =  manager.addProduct(title, description, price, thumbnail, code, stock, category, estado);  
+    const addProduct =  manager.addProduct(title, description, price, thumbnail, code, stock, category/* , estado */);  
 
     if (addProduct) {
         res.setHeader("Content-Type", "application/json");

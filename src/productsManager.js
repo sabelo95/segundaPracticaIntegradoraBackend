@@ -31,9 +31,9 @@ class ProductManager {
             if (category === undefined) {
                 missingFields.push("Categoría");
             }
-            if (estado !== true && estado !== false) {
+            /* if (estado !== true && estado !== false) {
                 missingFields.push("Estado");
-            }
+            } */
             
         
             if (missingFields.length > 0) {
@@ -52,7 +52,7 @@ class ProductManager {
             const id = existingData.length;
         
             
-            const newProduct = { title, description, price, thumbnail, code, stock, category, estado, id };
+            const newProduct = { title, description, price, thumbnail, code, stock, category, estado:true, id };
         
             
             existingData.push(newProduct);
