@@ -1,25 +1,45 @@
-const express=require('express')
-const ProductManager=require('./productsManager')
-const CartsManager=require('./cartsManager')
+ const path = require("path");
+const express = require("express");
+const { engine } = require("express-handlebars");
+const { Server } = require("socket.io");
 
-const PORT=8080
-const app=express()
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+const PORT = 8080;
 
+const app = express();
 
+app.engine("handlebars", engine());
+app.set("view engine", "handlebars");
+app.set("views", path.join(__dirname, "/views"));
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const productRouter = require('./routes/products.router')
-const cartsRouter = require('./routes/carts.router')
+app.use(express.static(path.join(__dirname, "/public")));
 
-    app.use('/api', productRouter);
-    app.use('/api/carts', cartsRouter);
+const productRouter = require("./routes/products.router");
+const cartsRouter = require("./routes/carts.router");
+const realTimeProducts = require("./routes/vistasRouter");
 
+app.use("/api", productRouter);
+app.use("/api/carts", cartsRouter);
+app.use("/",(req, res, next)=>{
   
+  req.io=io
+
+  next()
+}, realTimeProducts); 
+
+const server = app.listen(PORT, () => {
+  console.log(`Server on line en puerto ${PORT}`);
+});
+
+const io = new Server(server);
  
 
-const server=app.listen(PORT, ()=>{
-    console.log(`Server on line en puerto ${PORT}`)
-}) 
+
+
+
+
+
+
 

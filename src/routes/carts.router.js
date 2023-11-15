@@ -3,7 +3,7 @@ const fs = require('fs');
 const router = express.Router();
 const CartsManager=require('../cartsManager')
 
-const cartManager = new CartsManager('carts.json');
+const cartManager = new CartsManager('./src/carts.json');
   
 // Ruta para crear un nuevo carrito
 router.post('/', (req, res) => {
@@ -21,7 +21,7 @@ router.get('/:cid', (req, res) => {
   }
 
   const fs=require('fs')
-  let resultado = JSON.parse(fs.readFileSync('carts.json', 'utf-8')).find(car=>car.id===id)
+  let resultado = JSON.parse(fs.readFileSync('./src/carts.json', 'utf-8')).find(car=>car.id===id)
   if (resultado === null || resultado === undefined) {
       res.status(404).json('Carrito no encontrado');
   } else {

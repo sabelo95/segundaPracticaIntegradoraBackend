@@ -5,15 +5,20 @@ const ProductManager=require('../productsManager')
 
 router.get('/products',(req, res)=>{
     const fs=require('fs')
-    let resultado = JSON.parse(fs.readFileSync('products.json', 'utf-8'));
+    let resultado = JSON.parse(fs.readFileSync('./src/products.json', 'utf-8'));
      
    
     if(req.query.limit){
         resultado=resultado.slice(0, req.query.limit)
     }
 
-    res.setHeader('Content-Type','application/json');
-    res.status(200).json({filtros: req.query,resultado });
+    res.setHeader('Content-Type','text/html');
+    res.status(200).render('home',{
+        resultado
+    }); 
+
+    /*  res.setHeader('Content-Type','application/json');
+    res.status(200).json({filtros: req.query,resultado });  */
 })
 
 router.get('/products/:pid',(req,res)=>{
@@ -25,7 +30,7 @@ router.get('/products/:pid',(req,res)=>{
     }
 
     const fs=require('fs')
-    let resultado = JSON.parse(fs.readFileSync('products.json', 'utf-8')).find(prod=>prod.id===id)
+    let resultado = JSON.parse(fs.readFileSync('./src/products.json', 'utf-8')).find(prod=>prod.id===id)
     if (resultado === null || resultado === undefined) {
         res.status(404).json('producto no encontrado');
     } else {
@@ -44,7 +49,7 @@ router.post('/products', (req, res) => {
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     } 
   
-    const manager = new ProductManager('products.json');
+    const manager = new ProductManager('./src/products.json');
     const addProduct =  manager.addProduct(title, description, price, thumbnail, code, stock, category/* , estado */);  
 
     if (addProduct) {
@@ -73,7 +78,7 @@ router.post('/products/:pid', (req, res) => {
         return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
-    const manager = new ProductManager('products.json');
+    const manager = new ProductManager('./src/products.json');
     const updatedProducts = manager.updateProduct(id, {
         title,
         description,
@@ -102,7 +107,7 @@ router.delete('/delete/:pid', (req, res) => {
  
     
    
-    const manager = new ProductManager('products.json');
+    const manager = new ProductManager('./src/products.json');
     const deleteProduct = manager.deleteProducto(id)
     
     if (deleteProduct) {
