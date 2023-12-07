@@ -108,5 +108,71 @@
 		"category": "Electrónicos",
 		"estado": true,
 		"id": 9
+	},
+	{
+		"title": "Ejemplo de Producto",
+		"description": "Este es un producto de ejemplo",
+		"price": 19.99,
+		"thumbnail": "URL_de_la_imagen_del_producto",
+		"code": "123456",
+		"stock": 100,
+		"category": "Electrónicos",
+		"estado": true,
+		"id": 10
+	},
+	{
+		"title": "Ejemplo de Producto",
+		"description": "Este es un producto de ejemplo",
+		"price": 19.99,
+		"thumbnail": "URL_de_la_imagen_del_producto",
+		"code": "123456",
+		"stock": 100,
+		"category": "Electrónicos",
+		"estado": true,
+		"id": 11
+	},
+	{
+		"title": "Ejemplo de Producto",
+		"description": "Este es un producto de ejemplo",
+		"price": 19.99,
+		"thumbnail": "URL_de_la_imagen_del_producto",
+		"code": "123456",
+		"stock": 100,
+		"category": "Electrónicos",
+		"estado": true,
+		"id": 12
+	},
+	{
+		"title": "Ejemplo de Producto",
+		"description": "Este es un producto de ejemplo",
+		"price": 19.99,
+		"thumbnail": "URL_de_la_imagen_del_producto",
+		"code": "123456",
+		"stock": 100,
+		"category": "Electrónicos",
+		"estado": true,
+		"id": 13
+	},
+	{
+		"title": "Ejemplo de Producto",
+		"description": "Este es un producto de ejemplo",
+		"price": 19.99,
+		"thumbnail": "URL_de_la_imagen_del_producto",
+		"code": "123456",
+		"stock": 100,
+		"category": "Electrónicos",
+		"estado": true,
+		"id": 14
+	},
+	{
+		"title": "Ejemplo de Producto",
+		"description": "Este es un producto de ejemplo",
+		"price": 19.99,
+		"thumbnail": "URL_de_la_imagen_del_producto",
+		"code": "lalalala",
+		"stock": 100,
+		"category": "Electrónicos",
+		"estado": true,
+		"id": 15
 	}
 ]

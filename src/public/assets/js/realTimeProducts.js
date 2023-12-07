@@ -31,16 +31,20 @@ socket.on("resultado", function (resultado) {
   });
 });
 
-socket.on("productAdded", (data) => {
+socket.on("productAdded", async (data) => {
   console.log(data.message);
-  console.log("Nuevo producto:", data.product.producto);
+  console.log("Nuevo producto:", data.product);
 
-  
-  const productId = data.product.producto.id;
-  const productTitle = data.product.producto.title;
-  const productPrice = data.product.producto.price;
+  try {
+    
+    const product = await data.product;
 
-  
+    
+    const productId = product.id; 
+    const productTitle = product.title;
+    const productPrice = product.price;
+
+    
   const productsContainer = document.getElementById("productList");
 
   
@@ -49,6 +53,17 @@ socket.on("productAdded", (data) => {
 
   
   productsContainer.appendChild(newProductElement);
+
+  } catch (error) {
+    console.error("Error al obtener el producto:", error);
+    
+  }
+
+  /* const productId = data.product.producto.id; 
+  const productTitle = data.product.producto.title;
+  const productPrice = data.product.producto.price; */
+
+  
 
   
 });
