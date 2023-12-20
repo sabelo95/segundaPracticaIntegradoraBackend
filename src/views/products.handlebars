@@ -1,0 +1,80 @@
+<h2>Products Page</h2>
+<hr>
+<p>Bienvenido {{usuario.nombre}}--correo:{{usuario.email}}--rol:{{usuario.rol}}</p>
+<button><a href="/api/sessions/logout">Logout</a></button>
+{{#if auto}}
+  <input type="text" placeholder="Escribe aquí...">
+{{/if}}
+
+
+
+<hr>
+<a href="/chat">Chat</a>
+<hr>
+
+{{#each resultado}}
+  <p>ID: {{id}}, Name: {{title}}, Description: {{description}}, Price: {{price}}, Thumbnail: {{thumbnail}}, Code: {{code}}, Stock: {{stock}}, Category: {{category}}</p>
+  <button class="add-to-cart" data-product-id="{{id}}">Add to cart</button>
+{{/each}}
+
+
+</ul>
+<br>
+<a href="/api/products/?pagina=1">Pág.1</a>
+
+{{#if hasPrevPage}}
+    <a href="/api/products/?pagina={{prevPage}}">Pág.Ant.</a>
+{{else}}
+    <span>Pág.Ant.</span>
+{{/if}}
+
+{{#if hasNextPage}}
+    <a href="/api/products/?pagina={{nextPage}}">Pág.Sig.</a>
+{{else}}
+    <span>Pág.Sig.</span>
+{{/if}}
+
+<a href="/api/products/?pagina={{totalPages}}">Ult.Pág.</a>
+
+<script>
+  // Espera a que el DOM esté listo
+  document.addEventListener('DOMContentLoaded', function () {
+    // Obtén todos los elementos con la clase "add-to-cart"
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+    // Agrega un controlador de eventos a cada botón
+    addToCartButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        // Obtiene el id del producto desde el atributo data
+        const productId = this.getAttribute('data-product-id');
+
+        // Ejecuta la función que agrega el producto al carrito
+       fetch(`/api/carts/0/addproduct/${productId}`, {
+  method: 'POST',
+})
+  .then(response => response.json())
+  .then(data => {
+    // Puedes manejar la respuesta del servidor aquí
+    if (data.message === 'Producto agregado al carrito con éxito') {
+      // Lógica si el producto se agregó al carrito con éxito
+      console.log('Producto agregado al carrito con éxito');
+    } else {
+      // Lógica si hubo un problema al agregar el producto al carrito
+      console.log('Error al agregar el producto al carrito');
+    }
+  })
+  .catch(error => {
+    console.error(error);
+    // Puedes manejar errores aquí
+  });
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+   

@@ -1,13 +1,12 @@
 <div id="productsContainer">
   <h2>Real Time</h2>
-  <hr>
-    {{#each resultado}}
+  <hr />
+  {{#each resultado}}
     <p>ID: {{id}}, Name: {{title}}, Price: {{price}}</p>
-{{/each}}
-    <div id="productList"></div>
-  <hr>
+  {{/each}}
+  <div id="productList"></div>
+  <hr />
 </div>
 
 <script src="socket.io/socket.io.js"></script>
 <script src="assets/js/realTimeProducts.js"></script>
-

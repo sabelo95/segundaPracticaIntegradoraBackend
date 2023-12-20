@@ -83,7 +83,7 @@ export class CartManager {
         { $set: { "products.$.quantity": newQuantity } },
         { new: true }
       );
-  
+
       if (cart) {
         return true;
       } else {
@@ -91,14 +91,9 @@ export class CartManager {
       }
     } catch (error) {
       console.error(error);
-      throw new Error("Error al actualizar la cantidad del producto en el carrito");
+      throw new Error(
+        "Error al actualizar la cantidad del producto en el carrito"
+      );
     }
   }
 }
-
-
-
-
-  
-
-

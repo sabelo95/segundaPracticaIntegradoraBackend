@@ -1,7 +1,7 @@
 import { ProductModel } from "./models/products.model.js";
 
 export class ManagerProduct {
-  async listarUsuarios(pagina, limite, sortOrder,categoria) {
+  async listarUsuarios(pagina, limite, sortOrder, categoria) {
     if (limite === null) {
       limite = 10;
     }
@@ -16,18 +16,18 @@ export class ManagerProduct {
           sort: sortOrder ? { price: sortOrder } : undefined,
         }
       ); */
-      try {
-        console.log(categoria)
-        const query = categoria ? { category: categoria } : {};
-        return await ProductModel.paginate(
-          query, // Aquí es donde van las condiciones de filtro, incluyendo 'category' si es necesario
-          {
-            lean: true,
-            limit: limite,
-            page: pagina,
-            sort: sortOrder ? { price: sortOrder } : undefined,
-          }
-        );
+    try {
+      console.log(categoria);
+      const query = categoria ? { category: categoria } : {};
+      return await ProductModel.paginate(
+        query, // Aquí es donde van las condiciones de filtro, incluyendo 'category' si es necesario
+        {
+          lean: true,
+          limit: limite,
+          page: pagina,
+          sort: sortOrder ? { price: sortOrder } : undefined,
+        }
+      );
     } catch (error) {
       console.log(error);
       return null;
