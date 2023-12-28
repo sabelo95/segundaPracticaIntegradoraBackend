@@ -9,6 +9,9 @@ import { MessageModel } from "./dao/models/messages.model.js";
 import sessions from 'express-session'
 import mongoStore from 'connect-mongo'
 
+import { inicializarPassport } from './config/config.passport.js';
+import passport from 'passport';
+
 const PORT = 8080;
 
 const __filename = fileURLToPath(import.meta.url);
@@ -36,6 +39,10 @@ app.set("views", path.join(__dirname, "/views"));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+inicializarPassport()
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(express.static(path.join(__dirname, "/public")));
 
