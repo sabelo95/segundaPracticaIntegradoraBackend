@@ -1,4 +1,5 @@
 import { CartModel } from "./models/carts.model.js";
+import mongoose from "mongoose";
 
 export class CartManager {
   async createCart() {
@@ -18,7 +19,7 @@ export class CartManager {
 
   async getCart(cartId) {
     try {
-      const cart = await CartModel.findOne({ id: cartId })
+      const cart = await CartModel.findOne({ _id: cartId })
         .populate("products.product")
         .lean();
       return cart;
@@ -30,8 +31,9 @@ export class CartManager {
 
   async addProductToCart(cartId, productId) {
     try {
+      
       console.log(cartId, productId);
-      const cart = await CartModel.findOne({ id: cartId });
+      const cart = await CartModel.findOne({ _id:cartId });
 
       if (!cart) {
         throw new Error("Carrito no encontrado");
@@ -44,7 +46,7 @@ export class CartManager {
       if (existingProductIndex !== -1) {
         cart.products[existingProductIndex].quantity =
           (cart.products[existingProductIndex].quantity || 0) + 1;
-        console.log("hola");
+       
       } else {
         cart.products.push({ product: productId, quantity: 1 });
       }

@@ -2,6 +2,11 @@ import express from "express";
 /* import  ProductManager from '../dao/productsManager.js'; */
 import { ProductModel } from "../dao/models/products.model.js";
 import { ManagerProduct } from "../dao/productsManagerMDB.js";
+import { usuariosModelo } from "../dao/models/usuarios.modelo.js";
+import { CartModel } from "../dao/models/carts.model.js";
+import { CartManager } from "../dao/cartsManagerMDB.js";
+
+ const cartManager = new CartManager()
 
 const router = express.Router();
 /* const productManager = new ProductManager('./src/products.json'); */
@@ -16,68 +21,90 @@ const auth=(req, res, next)=>{
   next()
 }
 
-router.get("/products",auth, async (req, res) => {
-  console.log(req.session.usuario)
-  let pagina = 1;
-  if (req.query.pagina) {
-    pagina = req.query.pagina;
+router.get("/products", auth, async (req, res) => {
+  try {
+      console.log(req.session.usuario);
+
+      const newCart = await cartManager.createCart();
+      console.log('carrito nuevo' + newCart);
+
+      // Añadir carrito a usuario en sesión
+      /* let updateUsuario = await usuariosModelo.findOne({ email: req.session.usuario.email }); */
+      
+
+      /* updateUsuario.car = newCart._id;
+      await updateUsuario.save();
+
+      let usuario = req.session.usuario;
+      let rol = req.session.usuario.rol;
+      let auto = false; */
+
+      let updateUsuario = await usuariosModelo.findOne({ email: req.session.usuario.email });
+
+  updateUsuario.car = newCart._id;
+  await updateUsuario.save();
+
+  // Now that the save operation is completed, you can fetch the updated values
+  updateUsuario = await usuariosModelo.findOne({ email: req.session.usuario.email }).lean();
+
+  let usuario = updateUsuario;  // Assuming you want to assign the entire updated user object
+  let rol = updateUsuario.rol;
+  let auto = false;  // You may set the value as needed
+
+      console.log('usuario en sesion es' + updateUsuario);
+
+      let pagina = 1;
+      if (req.query.pagina) {
+          pagina = req.query.pagina;
+      }
+
+      let limite = null;
+      if (req.query.limit) {
+          limite = req.query.limit;
+      }
+
+      let resultado;
+      let preresultado = await productManager.listarUsuarios(pagina, limite);
+      let categoria = req.query.categoria ? req.query.categoria.toLowerCase() : null;
+
+      if (req.query.categoria) {
+          console.log("entrando a categoria");
+          preresultado = await productManager.listarUsuarios(pagina, limite, undefined, categoria);
+      }
+
+      if (req.query.sort) {
+          console.log("entrando al sort");
+          let sortOrder = req.query.sort === "desc" ? -1 : 1;
+          preresultado = await productManager.listarUsuarios(pagina, limite, sortOrder, categoria);
+      }
+
+      resultado = preresultado.docs;
+
+      let { totalPages, hasNextPage, hasPrevPage, prevPage, nextPage } = preresultado;
+
+      
+
+      if (rol === 'admin') {
+          auto = true;
+      }
+
+      res.status(200).render("products", {
+          resultado: resultado,
+          totalPages,
+          hasNextPage,
+          hasPrevPage,
+          prevPage,
+          nextPage,
+          usuario,
+          auto
+      });
+  } catch (error) {
+      // Manejar errores aquí
+      console.error(error);
+      res.status(500).send("Error interno del servidor");
   }
-
-  let limite = null;
-  if (req.query.limit) {
-    limite = req.query.limit;
-  }
-
-  let resultado;
-  let preresultado = await productManager.listarUsuarios(pagina, limite);
-  let categoria = req.query.categoria
-    ? req.query.categoria.toLowerCase()
-    : null;
-  if (req.query.categoria) {
-    console.log("entrando a categoria");
-
-    preresultado = await productManager.listarUsuarios(
-      pagina,
-      limite,
-      undefined, // No es necesario pasar 'categoria' como tercer parámetro aquí
-      categoria
-    );
-  }
-
-  if (req.query.sort) {
-    console.log("entrando al sort");
-    let sortOrder = req.query.sort === "desc" ? -1 : 1;
-    preresultado = await productManager.listarUsuarios(
-      pagina,
-      limite,
-      sortOrder,
-      categoria
-    );
-  }
-
-  resultado = preresultado.docs;
-
-  let { totalPages, hasNextPage, hasPrevPage, prevPage, nextPage } =
-    preresultado;
-
-  let usuario=req.session.usuario
-  let rol=req.session.usuario.rol
-  let auto=false
-   if (rol==='admin'){
-    auto=true
-  } 
-
-  res.status(200).render("products", {
-    resultado: resultado,
-    totalPages,
-    hasNextPage,
-    hasPrevPage,
-    prevPage,
-    nextPage,
-    usuario,
-    auto
-  });
 });
+
 
 router.get("/products/:pid", auth, async (req, res) => {
   let id = req.params.pid;

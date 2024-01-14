@@ -11,7 +11,7 @@ router.get('/errorLogin',(req,res)=>{
 router.post('/login', passport.authenticate('login',{failureRedirect:'/api/sessions/errorLogin'}), async(req, res)=>{
 
     req.session.usuario={
-        nombre:req.user.nombre, email:req.user.email , rol: req.user.rol
+        nombre:req.user.nombre, email:req.user.email , rol: req.user.rol, car: req.user.car
     }
 
     res.redirect('/api/products')
@@ -19,7 +19,7 @@ router.post('/login', passport.authenticate('login',{failureRedirect:'/api/sessi
 })
 
 router.post('/registro', passport.authenticate('registro', {failureRedirect:'/api/sessions/errorRegistro'}), async(req,res)=>{
-
+    
     let {email}=req.body
     
 
@@ -58,4 +58,9 @@ router.get('/logout',(req,res)=>{
 
     res.redirect('/login')
 
+});
+
+router.get('/current',(req,res)=>{
+    
+    res.status(200).json(req.session.usuario);
 });

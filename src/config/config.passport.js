@@ -14,9 +14,10 @@ export const inicializarPassport=()=>{
         async(req, username, password, done)=>{
             try {
                 console.log("Estrategia local registro de Passport...!!!")
-                let {nombre, email}=req.body
+                let {nombre,apellido, email,edad}=req.body
                 let rol = 'usuario'
-                if(!nombre || !email || !password){
+                
+                if(!nombre || !email || !password || !edad || !apellido){
                     // return res.redirect('/registro?error=Complete todos los datos')
                     return done(null, false)
                 }
@@ -39,7 +40,7 @@ export const inicializarPassport=()=>{
                 console.log(password)
                 let usuario
                 try {
-                    usuario=await usuariosModelo.create({nombre, email, password,rol})
+                    usuario=await usuariosModelo.create({nombre,apellido, email, password,rol})
                     // res.redirect(`/login?mensaje=Usuario ${email} registrado correctamente`)
                     return done(null, usuario)
                     // previo a devolver un usuario con done, passport graba en la req, una propiedad
@@ -93,9 +94,9 @@ export const inicializarPassport=()=>{
 
     passport.use('github', new github.Strategy(
         {
-            clientID: "", 
-            clientSecret: "", 
-            callbackURL: "", 
+            clientID: "Iv1.47a3cf663b9943dc", 
+            clientSecret: "869965fd559f20b6d7ba150d7209174a98483b02", 
+            callbackURL: "http://localhost:8080/api/sessions/callbackGithub", 
         },
         async(accessToken, refreshToken, profile, done)=>{
             try {

@@ -32,11 +32,7 @@ router.post("/", async (req, res) => {
 // Ruta para listar los productos de un carrito específico
 router.get("/:cid", auth,  async (req, res) => {
   let id = req.params.cid;
-  id = parseInt(id);
-
-  if (isNaN(id)) {
-    return res.send("Error, ingrese un argumento id numerico");
-  }
+  
 
   
 
@@ -60,11 +56,9 @@ router.get("/:cid", auth,  async (req, res) => {
 router.post("/:cid/addproduct/:pid", async (req, res) => {
   let productId = req.params.pid;
   let id = req.params.cid;
-  id = parseInt(id);
+ 
 
-  if (isNaN(id)) {
-    return res.send("Error, ingrese un argumento id numerico");
-  }
+  
 
   try {
     if (await cartManager.addProductToCart(id, productId)) {
@@ -83,13 +77,9 @@ router.post("/:cid/addproduct/:pid", async (req, res) => {
 router.post("/:cid/product/:pid", async (req, res) => {
   const productId = req.params.pid;
   let id = req.params.cid;
-  id = parseInt(id);
+  
 
-  if (isNaN(id)) {
-    return res
-      .status(400)
-      .json({ error: "Error, ingrese un argumento id numérico" });
-  }
+ 
 
   const newQuantity = req.body.quantity;
   console.log(newQuantity);

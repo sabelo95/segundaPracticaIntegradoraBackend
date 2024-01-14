@@ -1,7 +1,7 @@
 <h2>Products Page</h2>
 <hr>
 <p>Bienvenido {{usuario.nombre}}--correo:{{usuario.email}}--rol:{{usuario.rol}}</p>
-<a href="/api/carts/0">Carrito de compras</a>
+<a href="/api/carts/{{usuario.car}}">Carrito de compras</a>
 <button><a href="/api/sessions/logout">Logout</a></button>
 {{#if auto}}
   <input type="text" placeholder="Escribe aquí...">
@@ -38,39 +38,46 @@
 <a href="/api/products/?pagina={{totalPages}}">Ult.Pág.</a>
 
 <script>
-  // Espera a que el DOM esté listo
-  document.addEventListener('DOMContentLoaded', function () {
-    // Obtén todos los elementos con la clase "add-to-cart"
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+  
+ document.addEventListener('DOMContentLoaded', function () {
+  // Obtén todos los elementos con la clase "add-to-cart"
+  const addToCartButtons = document.querySelectorAll('.add-to-cart');
+  
+ var carUsuario= "{{usuario.car}}";
+   console.log(carUsuario)
+  
+  // Agrega un controlador de eventos a cada botón
+  addToCartButtons.forEach(button => {
+    button.addEventListener('click', function (e) {
+     
+      // Obtiene el id del producto desde el atributo data
+      const productId = this.getAttribute('data-product-id');
 
-    // Agrega un controlador de eventos a cada botón
-    addToCartButtons.forEach(button => {
-      button.addEventListener('click', function () {
-        // Obtiene el id del producto desde el atributo data
-        const productId = this.getAttribute('data-product-id');
-
-        // Ejecuta la función que agrega el producto al carrito
-       fetch(`/api/carts/0/addproduct/${productId}`, {
-  method: 'POST',
-})
-  .then(response => response.json())
-  .then(data => {
-    // Puedes manejar la respuesta del servidor aquí
-    if (data.message === 'Producto agregado al carrito con éxito') {
-      // Lógica si el producto se agregó al carrito con éxito
-      console.log('Producto agregado al carrito con éxito');
-    } else {
-      // Lógica si hubo un problema al agregar el producto al carrito
-      console.log('Error al agregar el producto al carrito');
-    }
-  })
-  .catch(error => {
-    console.error(error);
-    // Puedes manejar errores aquí
-  });
-      });
+      // Realiza la solicitud fetch para agregar el producto específico al carrito
+      fetch(`/api/carts/${carUsuario}/addproduct/${productId}`, {
+        method: 'POST',
+      })
+        .then(response => response.json())
+        .then(data => {
+          
+          if (data.message === 'Producto agregado al carrito con éxito') {
+            
+            console.log('Producto agregado al carrito con éxito');
+          } else {
+            
+            console.log('Error al agregar el producto al carrito');
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          // Puedes manejar errores aquí
+        });
     });
   });
+});
+
+
+
 </script>
 
 
