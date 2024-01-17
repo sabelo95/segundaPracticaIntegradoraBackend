@@ -2,12 +2,12 @@ import { CartModel } from "./models/carts.model.js";
 import mongoose from "mongoose";
 
 export class CartManager {
-  async createCart() {
+  async createCart(userCar) {
     try {
       const existingCarts = await CartModel.find();
       const cartId = existingCarts.length;
 
-      const newCart = new CartModel({ id: cartId, products: [] });
+      const newCart = new CartModel({ id: cartId, products: [], user: userCar });
       await newCart.save();
 
       return newCart;

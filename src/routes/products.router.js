@@ -23,9 +23,9 @@ const auth=(req, res, next)=>{
 
 router.get("/products", auth, async (req, res) => {
   try {
-      console.log(req.session.usuario);
-
-      const newCart = await cartManager.createCart();
+      
+      let userCar= req.user._id
+      const newCart = await cartManager.createCart(userCar);
       console.log('carrito nuevo' + newCart);
 
       // Añadir carrito a usuario en sesión

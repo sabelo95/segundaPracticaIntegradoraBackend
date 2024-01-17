@@ -8,6 +8,7 @@ const productInCartSchema = new mongoose.Schema({
 
 const cartSchema = new mongoose.Schema({
     id: { type: Number, required: true },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'usuarios'},
     products: [productInCartSchema]
 });
 
