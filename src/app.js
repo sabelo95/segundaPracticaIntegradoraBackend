@@ -4,13 +4,13 @@ import path from "path";
 import express from "express";
 import { engine } from "express-handlebars";
 import { Server } from "socket.io";
-import mongoose from "mongoose";
 import { MessageModel } from "./dao/models/messages.model.js";
 import sessions from 'express-session'
 import mongoStore from 'connect-mongo'
-
 import { inicializarPassport } from './config/config.passport.js';
 import passport from 'passport';
+import { config } from './config/config.js';
+
 
 const PORT = 8080;
 
@@ -21,12 +21,12 @@ const app = express();
 
 app.use(sessions(
   {
-      secret:"codercoder123",
+      secret:config.SecretKey,
       resave: true, saveUninitialized: true,
       store: mongoStore.create(
           {
-              mongoUrl:'mongodb+srv://santiagoberriolopez:mecanica95@cluster0.d1pj6rg.mongodb.net/?retryWrites=true&w=majority',
-              mongoOptions:{dbName:"ecommerce"},
+              mongoUrl:config.MONGO_URL,
+              mongoOptions:{dbName:config.DBNAME},
               ttl:3600
           }
       )
@@ -76,14 +76,7 @@ const server = app.listen(PORT, () => {
 
 const io = new Server(server);
 
-try {
-  await mongoose.connect(
-    "mongodb+srv://santiagoberriolopez:mecanica95@cluster0.d1pj6rg.mongodb.net/?retryWrites=true&w=majority&dbName=ecommerce"
-  );
-  console.log("DB Online");
-} catch (error) {
-  console.log(error);
-}
+
 
 let usuarios = [];
 let mensajes = [];

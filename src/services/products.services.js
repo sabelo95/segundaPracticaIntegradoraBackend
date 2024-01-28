@@ -1,7 +1,7 @@
-import { ProductModel } from "./models/products.model.js";
+import { productMongoDAO } from "../dao/productsMongoDao.js";
 
 export class ManagerProduct {
-  async listarUsuarios(pagina, limite, sortOrder, categoria) {
+  async listarProductos(pagina, limite, sortOrder, categoria) {
     if (limite === null) {
       limite = 10;
     }
@@ -19,22 +19,14 @@ export class ManagerProduct {
     try {
       console.log(categoria);
       const query = categoria ? { category: categoria } : {};
-      return await ProductModel.paginate(
-        query, // Aquí es donde van las condiciones de filtro, incluyendo 'category' si es necesario
-        {
-          lean: true,
-          limit: limite,
-          page: pagina,
-          sort: sortOrder ? { price: sortOrder } : undefined,
-        }
-      );
+      return productMongoDAO.getPaginate(query,limite,pagina,sortOrder)
     } catch (error) {
       console.log(error);
       return null;
     }
   }
 
-  async listarUsuariosId(idprod) {
+  async listarProductosId(idprod) {
     try {
       return await ProductModel.find({ id: idprod }).lean();
     } catch (error) {
@@ -45,31 +37,26 @@ export class ManagerProduct {
 
   async addProduct(productData) {
     try {
-      const lastProduct = await ProductModel.findOne()
-        .sort({ id: -1 })
-        .limit(1)
-        .lean();
+      const lastProduct = await productMongoDAO.get()
 
       const lastProductId = lastProduct ? lastProduct.id : 0;
       const newProductId = lastProductId + 1;
 
       const productWithId = { ...productData, id: newProductId };
 
-      const newProduct = new ProductModel(productWithId);
+      
 
-      return await newProduct.save();
+      return await productMongoDAO.create(productWithId)
     } catch (error) {
       console.error(error);
       throw new Error("Error al agregar el producto");
     }
+    
   }
 
   async updateProductById(id, updatedFields) {
     try {
-      const result = await ProductModel.updateOne(
-        { id: id },
-        { $set: updatedFields }
-      );
+      const result = await productMongoDAO.update(id,updatedFields)
 
       if (result.nModified > 0) {
         return true; // Indica que al menos un documento fue modificado
@@ -84,7 +71,7 @@ export class ManagerProduct {
 
   async deleteProductById(id) {
     try {
-      const result = await ProductModel.deleteOne({ id: id });
+      const result = await productMongoDAO.delete(id)
 
       if (result.deletedCount > 0) {
         return true; // Indica que al menos un documento fue eliminado
