@@ -1,7 +1,6 @@
 import { Router } from 'express';
-import { usuariosModelo } from '../dao/models/usuarios.modelo.js';
-import { creaHash, validaPassword } from '../utils.js';
 import passport from 'passport';
+import { UsuariosReadDTO } from '../config/usuarioDTO.js';
 export const router=Router()
 
 router.get('/errorLogin',(req,res)=>{
@@ -62,5 +61,5 @@ router.get('/logout',(req,res)=>{
 
 router.get('/current',(req,res)=>{
     
-    res.status(200).json(req.session.usuario);
+    res.status(200).json(new UsuariosReadDTO(req.user));
 });

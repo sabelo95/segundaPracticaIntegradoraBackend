@@ -1,0 +1,77 @@
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Actualizar producto</title>
+    <style>
+      body { font-family: Arial, sans-serif; } form { max-width: 400px; margin:
+      0 auto; } label { display: block; margin-bottom: 5px; } input, textarea,
+      button { width: 100%; margin-bottom: 15px; padding: 8px; } button {
+      background-color: #4caf50; color: white; border: none; padding: 10px 20px;
+      text-align: center; text-decoration: none; display: inline-block;
+      font-size: 16px; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <h1>Actualizar Producto</h1>
+
+    <form action="/api/productsAct" method="post">
+
+      <label for="id">ID:</label>
+      <input type="text" name="id" required />
+
+      <label for="title">Título:</label>
+      <input type="text" name="title" required />
+
+      <label for="description">Descripción:</label>
+      <textarea name="description" required></textarea>
+
+      <label for="code">Código:</label>
+      <input type="text" name="code" required />
+
+      <label for="price">Precio:</label>
+      <input type="number" name="price" required />
+
+      <label for="stock">Stock:</label>
+      <input type="number" name="stock" required />
+
+      <label for="category">Categoría:</label>
+      <input type="text" name="category" required />
+
+      <label for="thumbnail">Thumbnail URL:</label>
+      <input type="text" name="thumbnail" />
+
+      <button type="submit">Actualizar Producto</button>
+    </form>
+
+    <h1>Agregar Producto</h1>
+
+    <form action="/api/products" method="post">
+
+      <label for="title">Título:</label>
+      <input type="text" name="title" required />
+
+      <label for="description">Descripción:</label>
+      <textarea name="description" required></textarea>
+
+      <label for="code">Código:</label>
+      <input type="text" name="code" required />
+
+      <label for="price">Precio:</label>
+      <input type="number" name="price" required />
+
+      <label for="stock">Stock:</label>
+      <input type="number" name="stock" required />
+
+      <label for="category">Categoría:</label>
+      <input type="text" name="category" required />
+
+      <label for="thumbnail">Thumbnail URL:</label>
+      <input type="text" name="thumbnail" />
+
+      <button type="submit">Agregar Producto</button>
+    </form>
+
+    
+  </body>
+</html>

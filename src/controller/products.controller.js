@@ -27,7 +27,8 @@ export class productsController {
 
       let usuario = updateUsuario; 
       let rol = updateUsuario.rol;
-      let auto = false; 
+      let auto = false
+      let autoUser= false; 
 
       console.log("usuario en sesion es" + updateUsuario);
 
@@ -77,6 +78,12 @@ export class productsController {
         auto = true;
       }
 
+      if (rol === "usuario") {
+       autoUser = true;
+      }
+
+     
+
       res.status(200).render("products", {
         resultado: resultado,
         totalPages,
@@ -86,7 +93,18 @@ export class productsController {
         nextPage,
         usuario,
         auto,
+        autoUser
       });
+    } catch (error) {
+      // Manejar errores aquí
+      console.error(error);
+      res.status(500).send("Error interno del servidor");
+    }
+  }
+
+  static async crud(req, res) {
+    try {
+      res.status(200).render("CRUDproducts");
     } catch (error) {
       // Manejar errores aquí
       console.error(error);
@@ -115,6 +133,8 @@ export class productsController {
  static async postProduct(req, res){
     const { title, description, code, price, stock, category, thumbnail } =
       req.body;
+
+      console.log(req.body)
   
     if (!title || !description || !code || !price || !stock || !category) {
       return res.status(400).json({ error: "Todos los campos son obligatorios" });
@@ -133,27 +153,31 @@ export class productsController {
   }
 
  static  async actProduct(req, res){
-    let id = req.params.pid;
+    /* let id = req.params.pid;
     let idprod = parseInt(id);
   
     if (isNaN(idprod)) {
       return res
         .status(400)
         .json({ error: "Error, ingrese un argumento id numérico" });
-    }
+    } */
   
     const {
+      id,
       title,
       description,
       code,
       price,
       stock,
       category,
-      estado,
+      estado=true,
       thumbnail,
     } = req.body;
+
+    
   
     if (
+      !id ||
       !title ||
       !description ||
       !code ||
@@ -181,7 +205,7 @@ export class productsController {
   
       // Utiliza el método updateProductById del manager para actualizar el producto por ID
       const success = await productManager.updateProductById(
-        idprod,
+        id,
         updateFields
       );
   

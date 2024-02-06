@@ -12,16 +12,10 @@ const cartSchema = new mongoose.Schema({
     products: [productInCartSchema]
 });
 
-  /* cartSchema.pre("findOne", function(){
-    this.populate({
-        path: 'products.product',
-       
-    })
 
-    
-})   */
 
 cartSchema.plugin(paginate);
 const CartModel = mongoose.model('carts', cartSchema);
 
-export { CartModel };
+export { CartModel }; 
+

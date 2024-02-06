@@ -38,3 +38,12 @@ router.get('/perfil', auth, (req,res)=>{
     res.setHeader('Content-Type','text/html')
     res.status(200).render('perfil', {usuario})
 })
+
+router.get('/crudProduct', auth, (req,res)=>{
+
+    let usuario=req.session.usuario
+
+    res.setHeader('Content-Type','text/html')
+    res.status(200).render('CRUDproducts')
+})
+

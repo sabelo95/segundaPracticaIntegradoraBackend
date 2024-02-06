@@ -10,6 +10,7 @@ import mongoStore from 'connect-mongo'
 import { inicializarPassport } from './config/config.passport.js';
 import passport from 'passport';
 import { config } from './config/config.js';
+import { authUser } from "./utils.js";
 
 
 const PORT = 8080;
@@ -53,7 +54,7 @@ import { router as vistasRouter } from './routes/vistas.router.js';
 import { router as sessionRouter } from './routes/session.router.js';
 
 app.use("/api", productRouter);
-app.get("/chat", (req, res) => {
+app.get("/chat",authUser, (req, res) => {
   res.status(200).render("chat");
 });
 

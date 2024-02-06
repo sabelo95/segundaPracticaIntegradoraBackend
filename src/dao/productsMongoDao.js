@@ -25,11 +25,18 @@ try {
     }
 
     static async get(){
-      ProductModel.findOne()
+     return ProductModel.findOne()
         .sort({ id: -1 })
         .limit(1)
         .lean();
     }
+
+    static async getProduct(id){
+      return ProductModel.findOne(id)
+         .sort({ id: -1 })
+         .limit(1)
+         .lean();
+     }
 
     static async create(id){
       const newProduct = new ProductModel(id);
@@ -45,7 +52,7 @@ try {
     }
 
     static async delete(id){
-      ProductModel.deleteOne({ id: id });
+      return ProductModel.deleteOne({ id: id });
     }
   }
     

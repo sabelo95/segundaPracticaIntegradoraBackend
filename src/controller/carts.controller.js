@@ -1,6 +1,8 @@
 import { CartManager } from "../services/carts.services.js";
+import { ManagerProduct } from "../services/products.services.js";
 
 const cartManager = new CartManager();
+const productManager = new ManagerProduct()
 export class cartsController {
   constructor() {}
 
@@ -21,13 +23,13 @@ export class cartsController {
 
     try {
       const resultado = await cartManager.getCart(id);
-      console.log(resultado);
+      
 
       if (!resultado) {
         res.status(404).json("Carrito no encontrado");
       } else {
         res.setHeader("Content-Type", "text/html");
-        res.status(200).render("carrito", { resultado });
+        res.status(200).render("carrito", { resultado,id });
       }
     } catch (error) {
       console.error(error);
@@ -109,6 +111,19 @@ export class cartsController {
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Error al eliminar el producto" });
+    }
+  }
+
+  static async generateTicket(req, res) {
+   
+    try {
+      let carUsuario=req.user.car
+      let carrito=await cartManager.getCart(carUsuario)
+     let nostock= await  productManager.updateProductQuantities(carrito)
+     res.status(200).json({ payload: 'ticket generado, gracias por tu compra :), estos son los productos que no tienen inventario',nostock });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "error" });
     }
   }
 }
