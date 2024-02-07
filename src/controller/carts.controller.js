@@ -1,8 +1,9 @@
 import { CartManager } from "../services/carts.services.js";
 import { ManagerProduct } from "../services/products.services.js";
+import { TicketModel } from "../dao/models/ticket.model.js";
 
 const cartManager = new CartManager();
-const productManager = new ManagerProduct()
+const productManager = new ManagerProduct();
 export class cartsController {
   constructor() {}
 
@@ -23,13 +24,12 @@ export class cartsController {
 
     try {
       const resultado = await cartManager.getCart(id);
-      
 
       if (!resultado) {
         res.status(404).json("Carrito no encontrado");
       } else {
         res.setHeader("Content-Type", "text/html");
-        res.status(200).render("carrito", { resultado,id });
+        res.status(200).render("carrito", { resultado, id });
       }
     } catch (error) {
       console.error(error);
@@ -115,12 +115,40 @@ export class cartsController {
   }
 
   static async generateTicket(req, res) {
-   
     try {
-      let carUsuario=req.user.car
-      let carrito=await cartManager.getCart(carUsuario)
-     let nostock= await  productManager.updateProductQuantities(carrito)
-     res.status(200).json({ payload: 'ticket generado, gracias por tu compra :), estos son los productos que no tienen inventario',nostock });
+      let carUsuario = req.user.car;
+      let carrito = await cartManager.getCart(carUsuario);
+      let { noStock, productsStock } =
+        await productManager.updateProductQuantities(carrito);
+
+        let amount = productsStock.reduce((totalAmount, product) => {
+          // Accede al precio del producto desde la propiedad product.price
+          const price = product.product.price;
+          // Verifica si el precio es un número válido
+          if (!isNaN(price)) {
+              // Multiplica el precio del producto por su cantidad y lo agrega al monto total
+              return totalAmount + (price * product.quantity);
+          } else {
+              // Si el precio no es un número válido, retorna el monto total sin cambios
+              return totalAmount;
+          }
+      }, 0);
+      
+      const nuevoTicketData = {
+        purchase_datetime: new Date(),
+        products: productsStock,
+        amount:amount ,
+        purchaser: req.user.email,
+      };
+      const nuevoTicket = await TicketModel.create(nuevoTicketData)
+      
+      res
+        .status(200)
+        .json({
+          payload:
+            "ticket generado, gracias por tu compra :), estos son los productos que no tienen inventario",
+          noStock,
+        });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "error" });

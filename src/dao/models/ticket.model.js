@@ -1,20 +1,20 @@
 import mongoose from 'mongoose';
+import shortid from 'shortid';
 
 const ticketSchema = new mongoose.Schema({
     code: {
         type: String,
         required: true,
         unique: true,
-        default: function () {
-            // Generar código único, por ejemplo, usando un paquete como shortid
-            const shortid = require('shortid');
-            return shortid.generate();
-        }
+        default: () => shortid.generate() // Devuelve directamente el código generado por shortid
     },
     purchase_datetime: {
         type: Date,
         default: Date.now,
         required: true
+    },
+    products: {
+        // Define la estructura de los productos si es necesario
     },
     amount: {
         type: Number,
@@ -24,8 +24,7 @@ const ticketSchema = new mongoose.Schema({
         type: String,
         required: true
     }
-},
-{
+}, {
     strict: false
 });
 
