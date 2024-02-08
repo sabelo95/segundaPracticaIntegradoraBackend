@@ -21,10 +21,11 @@
 <button class="add-to-cart" data-product-id="{{id}}">Add to cart</button>
 {{/each}}
 {{/if}}
+{{#if auto}}
 {{#each resultado}}
   <p>ID: {{id}}, Name: {{title}}, Description: {{description}}, Price: {{price}}, Thumbnail: {{thumbnail}}, Code: {{code}}, Stock: {{stock}}, Category: {{category}}</p>
 {{/each}}
-
+{{/if}}
 
 </ul>
 <br>
