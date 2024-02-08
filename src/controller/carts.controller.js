@@ -121,34 +121,38 @@ export class cartsController {
       let { noStock, productsStock } =
         await productManager.updateProductQuantities(carrito);
 
-        let amount = productsStock.reduce((totalAmount, product) => {
-          // Accede al precio del producto desde la propiedad product.price
-          const price = product.product.price;
-          // Verifica si el precio es un número válido
-          if (!isNaN(price)) {
-              // Multiplica el precio del producto por su cantidad y lo agrega al monto total
-              return totalAmount + (price * product.quantity);
-          } else {
-              // Si el precio no es un número válido, retorna el monto total sin cambios
-              return totalAmount;
-          }
+      let amount = productsStock.reduce((totalAmount, product) => {
+        // Accede al precio del producto desde la propiedad product.price
+        const price = product.product.price;
+        // Verifica si el precio es un número válido
+        if (!isNaN(price)) {
+          // Multiplica el precio del producto por su cantidad y lo agrega al monto total
+          return totalAmount + price * product.quantity;
+        } else {
+          // Si el precio no es un número válido, retorna el monto total sin cambios
+          return totalAmount;
+        }
       }, 0);
-      
+
       const nuevoTicketData = {
         purchase_datetime: new Date(),
         products: productsStock,
-        amount:amount ,
+        amount: amount,
         purchaser: req.user.email,
       };
-      const nuevoTicket = await TicketModel.create(nuevoTicketData)
+      const nuevoTicket = await TicketModel.create(nuevoTicketData);
+     
       
-      res
-        .status(200)
-        .json({
-          payload:
-            "ticket generado, gracias por tu compra :), estos son los productos que no tienen inventario",
-          noStock,
-        });
+      cartManager.updateCartWithNoStockProducts(carUsuario,noStock);
+      res.status(200).render('ticket', {
+        purchase_datetime: nuevoTicketData.purchase_datetime,
+        products: nuevoTicketData.products,
+        amount: nuevoTicketData.amount,
+        purchaser: nuevoTicketData.purchaser,
+        noStock: noStock
+    });
+    
+    
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "error" });

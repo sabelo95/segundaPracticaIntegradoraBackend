@@ -1,6 +1,5 @@
 import { cartMongoDAO as Dao } from "../dao/cartsMongoDao.js";
 
-
 export class CartManager {
   async createCart(userCar) {
     try {
@@ -16,8 +15,7 @@ export class CartManager {
 
   async getCart(cartId) {
     try {
-     
-    return  Dao.getCart(cartId)
+      return Dao.getCart(cartId);
     } catch (error) {
       console.error(error);
       throw new Error("Error al obtener el carrito");
@@ -26,9 +24,8 @@ export class CartManager {
 
   async addProductToCart(cartId, productId) {
     try {
-      
       console.log(cartId, productId);
-      Dao.addProduct(cartId,productId)
+      Dao.addProduct(cartId, productId);
 
       return true;
     } catch (error) {
@@ -39,7 +36,7 @@ export class CartManager {
 
   async removeProductFromCart(cartId, productId) {
     try {
-      Dao.deleteProduct(cartId,productId)
+      Dao.deleteProduct(cartId, productId);
     } catch (error) {
       console.error(error);
       throw new Error("Error al eliminar el producto del carrito");
@@ -47,12 +44,23 @@ export class CartManager {
   }
   async updateProductQuantityInCart(cartId, productId, newQuantity) {
     try {
-     Dao.updateProduct(cartId,productId,newQuantity)
+      Dao.updateProduct(cartId, productId, newQuantity);
     } catch (error) {
       console.error(error);
       throw new Error(
         "Error al actualizar la cantidad del producto en el carrito"
       );
+    }
+  }
+
+  async updateCartWithNoStockProducts(cartId,noStockProducts) {
+    try {
+      
+      await Dao.updateOne(cartId,noStockProducts)
+     
+    } catch (error) {
+      console.error("Error al actualizar el carrito:", error);
+      throw error; // Maneja el error según sea necesario
     }
   }
 }

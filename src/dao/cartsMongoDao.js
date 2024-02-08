@@ -87,4 +87,8 @@ try {
         throw new Error("Producto no encontrado en el carrito");
       }
     }
+
+    static async updateOne(cartId,products){
+      await CartModel.updateOne({ _id: cartId }, { products: products })
+    }
 }

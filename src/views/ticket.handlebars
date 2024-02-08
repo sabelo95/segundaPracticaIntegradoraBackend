@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket de Compra</title>
+</head>
+<body>
+    <h1>Ticket de Compra</h1>
+    <h2>GRACIAS POR TU COMPRA :)</h2>
+    <p>Fecha de Compra: {{ purchase_datetime }}</p>
+    
+    <h2>Productos:</h2>
+    <ul>
+        {{#each products}}
+            <li>
+                <strong>{{ this.product.title }}</strong> - Precio: {{ this.product.price }} - Cantidad: {{ this.quantity }}
+            </li>
+        {{/each}}
+    </ul>
+    
+    <p>Total a Pagar: {{ amount }}</p>
+    <p>Comprador: {{ purchaser }}</p>
+    
+    {{#if noStock.length}}
+        <h2>Productos no disponibles:</h2>
+        <ul>
+            {{#each noStock}}
+                <li>{{ this.product.title }} - {{ this.product.description }}</li>
+            {{/each}}
+        </ul>
+        <p>Lo sentimos, estos productos no están disponibles en este momento. Te avisaremos cuando haya inventario.</p>
+    {{/if}}
+</body>
+</html>

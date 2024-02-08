@@ -104,7 +104,7 @@ export class ManagerProduct {
               // Subtract the quantity from the existing stock
               let updatedStock = existingProduct.stock - quantity;
               //si no hay stock agregamos producto a nostock
-              if (updatedStock<=0){
+              if (updatedStock<0){
                 noStock.push(product)
                 updatedStock = existingProduct.stock
                 console.log(noStock)
