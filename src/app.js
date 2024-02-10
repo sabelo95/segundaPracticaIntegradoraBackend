@@ -52,6 +52,8 @@ import cartsRouter from "./routes/carts.router.js";
 import realTimeProducts from "./routes/liveRouter.js";
 import { router as vistasRouter } from './routes/vistas.router.js';
 import { router as sessionRouter } from './routes/session.router.js';
+import { router as mockingRouter } from "./routes/mocking.router.js";
+
 
 app.use("/api", productRouter);
 app.get("/chat",authUser, (req, res) => {
@@ -70,6 +72,8 @@ app.use(
 
 app.use('/', vistasRouter)
 app.use('/api/sessions', sessionRouter)
+
+app.use('/mockingProducts', mockingRouter)
 
 const server = app.listen(PORT, () => {
   console.log(`Server on line en puerto ${PORT}`);
