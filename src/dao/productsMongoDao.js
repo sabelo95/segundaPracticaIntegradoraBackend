@@ -3,7 +3,7 @@ import { ProductModel } from "./models/products.model.js";
 
 try {
     await mongoose.connect(
-      "mongodb+srv://santiagoberriolopez:mecanica95@cluster0.d1pj6rg.mongodb.net/?retryWrites=true&w=majority&dbName=ecommerce"
+      "mongodb+srv://santiagoberriolopez:mecanica9@cluster0.d1pj6rg.mongodb.net/?retryWrites=true&w=majority&dbName=ecommerce"
     );
     console.log("DB Online");
   } catch (error) {
