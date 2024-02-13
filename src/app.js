@@ -10,7 +10,8 @@ import mongoStore from 'connect-mongo'
 import { inicializarPassport } from './config/config.passport.js';
 import passport from 'passport';
 import { config } from './config/config.js';
-import { authUser } from "./utils.js";
+import { authUser } from "./utils/utils.js";
+import { errorHandler } from './middlewares/errorHandler.js';
 
 
 const PORT = 8080;
@@ -74,6 +75,7 @@ app.use('/', vistasRouter)
 app.use('/api/sessions', sessionRouter)
 
 app.use('/mockingProducts', mockingRouter)
+app.use(errorHandler)
 
 const server = app.listen(PORT, () => {
   console.log(`Server on line en puerto ${PORT}`);

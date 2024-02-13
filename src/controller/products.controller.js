@@ -1,6 +1,10 @@
 import { ManagerProduct } from "../services/products.services.js";
 import { CartManager } from "../services/carts.services.js";
 import { usuariosModelo } from "../dao/models/usuarios.modelo.js";
+import { CustomError } from '../utils/CustomErrors.js';
+import { ERRORES_INTERNOS, STATUS_CODES } from '../utils/tiposError.js';
+import { errorArgumentos,errorArgumentosDel } from '../utils/errores.js';
+
 
 
 const cartManager = new CartManager()
@@ -11,6 +15,8 @@ export class productsController {
 
   static async getCart(req, res) {
     try {
+
+      
       let userCar = req.user._id;
       const newCart = await cartManager.createCart(userCar);
       console.log("carrito nuevo",  newCart);
@@ -131,13 +137,16 @@ export class productsController {
   }
 
  static async postProduct(req, res){
+
+  
     const { title, description, code, price, stock, category, thumbnail } =
       req.body;
 
-      console.log(req.body)
+      
   
     if (!title || !description || !code || !price || !stock || !category) {
-      return res.status(400).json({ error: "Todos los campos son obligatorios" });
+      throw CustomError.CustomError("Complete campos", "Falta completar los campos requeridos", STATUS_CODES.ERROR_ARGUMENTOS, ERRORES_INTERNOS.ARGUMENTOS, errorArgumentos(req.body))
+      
     }
   
    
@@ -149,18 +158,11 @@ export class productsController {
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Error al agregar el producto" });
-    }
+    } 
   }
 
  static  async actProduct(req, res){
-    /* let id = req.params.pid;
-    let idprod = parseInt(id);
-  
-    if (isNaN(idprod)) {
-      return res
-        .status(400)
-        .json({ error: "Error, ingrese un argumento id numérico" });
-    } */
+    
   
     const {
       id,
@@ -186,7 +188,7 @@ export class productsController {
       !category ||
       estado === undefined
     ) {
-      return res.status(400).json({ error: "Todos los campos son obligatorios" });
+      throw CustomError.CustomError("Complete campos", "Falta completar los campos requeridos", STATUS_CODES.ERROR_ARGUMENTOS, ERRORES_INTERNOS.ARGUMENTOS, errorArgumentos(req.body))
     }
    
   
@@ -225,9 +227,7 @@ export class productsController {
     let idprod = parseInt(id);
   
     if (isNaN(idprod)) {
-      return res
-        .status(400)
-        .json({ error: "Error, ingrese un argumento id numérico" });
+      throw CustomError.CustomError("Complete campos", "Falta completar el id del productos", STATUS_CODES.ERROR_ARGUMENTOS, ERRORES_INTERNOS.ARGUMENTOS, errorArgumentosDel(req.body))
     }
   
    

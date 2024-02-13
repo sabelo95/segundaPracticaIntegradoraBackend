@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 import { ProductModel } from "./models/products.model.js";
+import { CustomError } from '../utils/CustomErrors.js';
+import { ERRORES_INTERNOS, STATUS_CODES } from '../utils/tiposError.js';
+import { errorArgumentosDB } from '../utils/errores.js';
 
 try {
     await mongoose.connect(
@@ -7,7 +10,7 @@ try {
     );
     console.log("DB Online");
   } catch (error) {
-    console.log(error);
+    throw CustomError.CustomError("Error", "Error al conectar a la base de datos", STATUS_CODES.ERROR_AUTENTICACION, ERRORES_INTERNOS.DATABASE, errorArgumentosDB())
   }
 
   export class productMongoDAO{

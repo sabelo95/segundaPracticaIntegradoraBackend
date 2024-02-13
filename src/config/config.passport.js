@@ -2,7 +2,7 @@ import passport from 'passport'
 import local from 'passport-local'
 import github from 'passport-github2'
 import { usuariosModelo } from '../dao/models/usuarios.modelo.js'
-import { creaHash, validaPassword } from '../utils.js'
+import { creaHash, validaPassword } from '../utils/utils.js'
 import { config } from './config.js'
 
 export const inicializarPassport=()=>{
