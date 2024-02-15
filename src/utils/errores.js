@@ -1,9 +1,9 @@
 import os from 'os'
 
-// export const errorArgumentos=(usuario)=>{
+
 export const errorArgumentos=(campos)=>{
 
-    // let {name, ...otros}=usuario
+    
 
     return `
 Error en argumentos:
@@ -19,7 +19,7 @@ Usuario: ${os.userInfo().username}
 
 export const errorArgumentosDel=(campos)=>{
 
-    // let {name, ...otros}=usuario
+   
 
     return `
 Error en argumentos:

@@ -7,19 +7,10 @@ export class CustomError{
         error.descripcion=descripcion
 
         return error
-        // throw new Error("Solo se aceptan argumentes... ")
-    }
-}
-
-export class OtroCustomError extends Error{
-    constructor(nombre, mensaje, statusCode, descripcion){
-        super(mensaje)
-        this.name=nombre
-        this.codigo=statusCode
-        this.descripcion=descripcion
+        
     }
 }
 
 
-// throw new Error("Error 1")
-// throw new OtroCustomError("Error x", "mensaje error", 400, "algo... descrip")
+
+

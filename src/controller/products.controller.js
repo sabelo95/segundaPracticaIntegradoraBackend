@@ -136,7 +136,7 @@ export class productsController {
     });
   }
 
- static async postProduct(req, res){
+  static async postProduct(req, res){
 
   
     const { title, description, code, price, stock, category, thumbnail } =
@@ -144,11 +144,11 @@ export class productsController {
 
       
   
-    if (!title || !description || !code || !price || !stock || !category) {
-      throw CustomError.CustomError("Complete campos", "Falta completar los campos requeridos", STATUS_CODES.ERROR_ARGUMENTOS, ERRORES_INTERNOS.ARGUMENTOS, errorArgumentos(req.body))
-      
-    }
-  
+      if (!title || !description || !code || !price || !stock || !category) {
+     
+      res.status(400).send("Complete todos los campos");
+    } 
+   
    
     try {
       const savedProduct = await productManager.addProduct(req.body);
@@ -156,9 +156,9 @@ export class productsController {
         .status(201)
         .json({ message: "Producto agregado con éxito", producto: savedProduct });
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Error al agregar el producto" });
-    } 
+      res.status(500).json({ error: error }); 
+    }
+    
   }
 
  static  async actProduct(req, res){
@@ -188,7 +188,7 @@ export class productsController {
       !category ||
       estado === undefined
     ) {
-      throw CustomError.CustomError("Complete campos", "Falta completar los campos requeridos", STATUS_CODES.ERROR_ARGUMENTOS, ERRORES_INTERNOS.ARGUMENTOS, errorArgumentos(req.body))
+      res.status(400).send("Complete todos los campos");
     }
    
   
@@ -227,7 +227,7 @@ export class productsController {
     let idprod = parseInt(id);
   
     if (isNaN(idprod)) {
-      throw CustomError.CustomError("Complete campos", "Falta completar el id del productos", STATUS_CODES.ERROR_ARGUMENTOS, ERRORES_INTERNOS.ARGUMENTOS, errorArgumentosDel(req.body))
+      res.status(400).json({ error: "Id no valido" });
     }
   
    

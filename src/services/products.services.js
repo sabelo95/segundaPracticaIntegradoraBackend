@@ -1,21 +1,14 @@
 import { productMongoDAO } from "../dao/productsMongoDao.js";
+import { CustomError } from '../utils/CustomErrors.js';
+import { ERRORES_INTERNOS, STATUS_CODES } from '../utils/tiposError.js';
+import { errorArgumentos } from '../utils/errores.js';
 
 export class ManagerProduct {
   async listarProductos(pagina, limite, sortOrder, categoria) {
     if (limite === null) {
       limite = 10;
     }
-    /* try {
-      
-      return await ProductModel.paginate(
-        {},
-        {
-          lean: true,
-          limit: limite,
-          page: pagina,
-          sort: sortOrder ? { price: sortOrder } : undefined,
-        }
-      ); */
+   
     try {
       console.log(categoria);
       const query = categoria ? { category: categoria } : {};
@@ -36,7 +29,7 @@ export class ManagerProduct {
   }
 
   async addProduct(productData) {
-    try {
+    try { 
       const lastProduct = await productMongoDAO.get()
       console.log(lastProduct)
 
@@ -49,9 +42,10 @@ export class ManagerProduct {
 
       return await productMongoDAO.create(productWithId)
     } catch (error) {
-      console.error(error);
-      throw new Error("Error al agregar el producto");
-    }
+       
+      
+      throw CustomError.CustomError("Complete campos", "Falta completar los campos requeridos", STATUS_CODES.ERROR_ARGUMENTOS, ERRORES_INTERNOS.ARGUMENTOS, errorArgumentos());
+    } 
     
   }
 

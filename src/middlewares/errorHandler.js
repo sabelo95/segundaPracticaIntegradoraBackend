@@ -1,4 +1,4 @@
-// import { OtroCustomError } from "../utils/CustomErrors.js";
+
 
 export const errorHandler=(error, req, res, next)=>{
     if(error){
@@ -16,4 +16,3 @@ export const errorHandler=(error, req, res, next)=>{
     next()
 }
 
-// if(error instanceof OtroCustomError)
