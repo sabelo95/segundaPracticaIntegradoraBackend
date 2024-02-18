@@ -1,9 +1,10 @@
 import { ManagerProduct } from "../services/products.services.js";
 import { CartManager } from "../services/carts.services.js";
 import { usuariosModelo } from "../dao/models/usuarios.modelo.js";
-import { CustomError } from '../utils/CustomErrors.js';
+import { CustomError , trataError} from '../utils/CustomErrors.js';
 import { ERRORES_INTERNOS, STATUS_CODES } from '../utils/tiposError.js';
-import { errorArgumentos,errorArgumentosDel } from '../utils/errores.js';
+import { errorArgumentos, errorArgumentosDel } from '../utils/errores.js';
+
 
 
 
@@ -137,26 +138,27 @@ export class productsController {
   }
 
   static async postProduct(req, res){
-
+    try {
   
     const { title, description, code, price, stock, category, thumbnail } =
       req.body;
 
       
   
-      if (!title || !description || !code || !price || !stock || !category) {
+       if (!title || !description || !code || !price || !stock || !category) {
      
-      res.status(400).send("Complete todos los campos");
-    } 
+        throw new CustomError("Complete campos", "Falta completar los campos requeridos", STATUS_CODES.ERROR_ARGUMENTOS, ERRORES_INTERNOS.ARGUMENTOS, errorArgumentos());
+    }   
    
    
-    try {
+    
       const savedProduct = await productManager.addProduct(req.body);
       res
         .status(201)
         .json({ message: "Producto agregado con éxito", producto: savedProduct });
     } catch (error) {
-      res.status(500).json({ error: error }); 
+      /* res.status(500).json({ error: error });  */
+      trataError(error, res) 
     }
     
   }
@@ -225,14 +227,14 @@ export class productsController {
   static async deleteProd(req, res){
     let id = req.params.pid;
     let idprod = parseInt(id);
-  
+    try {
     if (isNaN(idprod)) {
-      res.status(400).json({ error: "Id no valido" });
+      throw new CustomError("Complete campos", "Ingrese un id numerico", STATUS_CODES.ERROR_ARGUMENTOS, ERRORES_INTERNOS.ARGUMENTOS, errorArgumentosDel(req.params));
     }
   
    
   
-    try {
+  
       // Utiliza el método deleteProductById del manager para eliminar el producto por ID
       const success = await productManager.deleteProductById(idprod);
   
@@ -242,8 +244,9 @@ export class productsController {
         res.status(404).json({ error: "Producto no encontrado" });
       }
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Error al eliminar el producto" });
+      /* console.error(error);
+      res.status(500).json({ error: "Error al eliminar el producto" }); */
+      trataError(error, res) 
     }
   }
 }

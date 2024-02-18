@@ -33,7 +33,7 @@ Usuario: ${os.userInfo().username}
 
 }
 
-export const errorArgumentosDB=()=>{
+export const errorCreaProd=()=>{
 
     
 
