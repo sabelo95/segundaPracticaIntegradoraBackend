@@ -52,7 +52,7 @@
   const addToCartButtons = document.querySelectorAll('.add-to-cart');
   
  var carUsuario= "{{usuario.car}}";
-   console.log(carUsuario)
+   req.logger.info(carUsuario)
   
   // Agrega un controlador de eventos a cada botón
   addToCartButtons.forEach(button => {
@@ -70,14 +70,14 @@
           
           if (data.message === 'Producto agregado al carrito con éxito') {
             
-            console.log('Producto agregado al carrito con éxito');
+            req.logger.info('Producto agregado al carrito con éxito');
           } else {
             
-            console.log('Error al agregar el producto al carrito');
+            req.logger.info('Error al agregar el producto al carrito');
           }
         })
         .catch(error => {
-          console.error(error);
+          req.logger.error(error);
           // Puedes manejar errores aquí
         });
     });

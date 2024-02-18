@@ -12,6 +12,8 @@ import passport from 'passport';
 import { config } from './config/config.js';
 import { authUser } from "./utils/utils.js";
 import { errorHandler } from './middlewares/errorHandler.js';
+import { middLogg } from "./utils/loggers.js";
+import { logger } from "./utils/loggers.js";
 
 
 const PORT = 8080;
@@ -55,7 +57,7 @@ import { router as vistasRouter } from './routes/vistas.router.js';
 import { router as sessionRouter } from './routes/session.router.js';
 import { router as mockingRouter } from "./routes/mocking.router.js";
 
-
+app.use(middLogg)
 app.use("/api", productRouter);
 app.get("/chat",authUser, (req, res) => {
   res.status(200).render("chat");
@@ -78,7 +80,7 @@ app.use('/mockingProducts', mockingRouter)
 app.use(errorHandler)
 
 const server = app.listen(PORT, () => {
-  console.log(`Server on line en puerto ${PORT}`);
+  logger.info(`Server on line en puerto ${PORT}`);
 });
 
 const io = new Server(server);
@@ -89,7 +91,7 @@ let usuarios = [];
 let mensajes = [];
 
 io.on("connection", (socket) => {
-  console.log(`Se ha conectado un cliente con id ${socket.id}`);
+  req.logger.info(`Se ha conectado un cliente con id ${socket.id}`);
 
   socket.on("id", async (nombre) => {
     usuarios.push({ nombre, id: socket.id });
@@ -110,7 +112,7 @@ io.on("connection", (socket) => {
 
     try {
       const mensajeGuardado = await nuevoMensaje.save();
-      console.log("Mensaje guardado en la base de datos:", mensajeGuardado);
+      req.logger.info("Mensaje guardado en la base de datos:", mensajeGuardado);
 
       io.emit("nuevoMensaje", datos);
     } catch (error) {

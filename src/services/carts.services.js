@@ -8,7 +8,7 @@ export class CartManager {
       const newCart = await Dao.create(cartId, userCar);
       return newCart;
     } catch (error) {
-      console.error(error);
+      req.logger.error(error);
       throw new Error("Error al crear el carrito");
     }
   }
@@ -17,19 +17,19 @@ export class CartManager {
     try {
       return Dao.getCart(cartId);
     } catch (error) {
-      console.error(error);
+      req.logger.error(error);
       throw new Error("Error al obtener el carrito");
     }
   }
 
   async addProductToCart(cartId, productId) {
     try {
-      console.log(cartId, productId);
+      req.logger.info(cartId, productId);
       Dao.addProduct(cartId, productId);
 
       return true;
     } catch (error) {
-      console.error(error);
+      req.logger.error(error);
       throw new Error("Error al agregar el producto al carrito");
     }
   }
@@ -38,7 +38,7 @@ export class CartManager {
     try {
       Dao.deleteProduct(cartId, productId);
     } catch (error) {
-      console.error(error);
+      req.logger.error(error);
       throw new Error("Error al eliminar el producto del carrito");
     }
   }
@@ -46,7 +46,7 @@ export class CartManager {
     try {
       Dao.updateProduct(cartId, productId, newQuantity);
     } catch (error) {
-      console.error(error);
+      req.logger.error(error);
       throw new Error(
         "Error al actualizar la cantidad del producto en el carrito"
       );

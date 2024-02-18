@@ -20,7 +20,7 @@ export class productsController {
       
       let userCar = req.user._id;
       const newCart = await cartManager.createCart(userCar);
-      console.log("carrito nuevo",  newCart);
+      req.logger.info(`carrito nuevo ${newCart}`)
 
       let updateUsuario = await usuariosModelo.findOne({
         email: req.session.usuario.email,
@@ -37,8 +37,8 @@ export class productsController {
       let auto = false
       let autoUser= false; 
 
-      console.log("usuario en sesion es" + updateUsuario);
-
+     
+      req.logger.info(`usuario en sesion es ${updateUsuario}`)
       let pagina = 1;
       if (req.query.pagina) {
         pagina = req.query.pagina;
@@ -56,7 +56,7 @@ export class productsController {
         : null;
 
       if (req.query.categoria) {
-        console.log("entrando a categoria");
+        req.logger.info(`entrando a categoria`)
         preresultado = await productManager.listarProductos(
           pagina,
           limite,
@@ -66,7 +66,7 @@ export class productsController {
       }
 
       if (req.query.sort) {
-        console.log("entrando al sort");
+        req.logger.info(`entrando al sort`)
         let sortOrder = req.query.sort === "desc" ? -1 : 1;
         preresultado = await productManager.listarProductos(
           pagina,
@@ -104,7 +104,7 @@ export class productsController {
       });
     } catch (error) {
       // Manejar errores aquí
-      console.error(error);
+      req.logger.error(error)
       res.status(500).send("Error interno del servidor");
     }
   }
@@ -114,7 +114,7 @@ export class productsController {
       res.status(200).render("CRUDproducts");
     } catch (error) {
       // Manejar errores aquí
-      console.error(error);
+      req.logger.error(error)
       res.status(500).send("Error interno del servidor");
     }
   }
@@ -191,10 +191,13 @@ export class productsController {
       estado === undefined
     ) {
       res.status(400).send("Complete todos los campos");
-    }
+      
+      req.logger.info("No se completo las propiedades necesarias")
+    }else {
+
+    
+      try {
    
-  
-    try {
       // Crea un objeto con los campos que deseas actualizar
       const updateFields = {
         title,
@@ -219,9 +222,11 @@ export class productsController {
         res.status(404).json({ error: "Producto no encontrado" });
       }
     } catch (error) {
-      console.error(error);
+      req.logger.error(error)
       res.status(500).json({ error: "Error al actualizar el producto" });
     }
+  }
+   
   }
 
   static async deleteProd(req, res){
@@ -244,7 +249,7 @@ export class productsController {
         res.status(404).json({ error: "Producto no encontrado" });
       }
     } catch (error) {
-      /* console.error(error);
+      /* req.logger.error(error);
       res.status(500).json({ error: "Error al eliminar el producto" }); */
       trataError(error, res) 
     }

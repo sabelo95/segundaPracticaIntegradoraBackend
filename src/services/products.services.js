@@ -10,11 +10,11 @@ export class ManagerProduct {
     }
    
     try {
-      console.log(categoria);
+      req.logger.info(categoria)
       const query = categoria ? { category: categoria } : {};
       return productMongoDAO.getPaginate(query,limite,pagina,sortOrder)
     } catch (error) {
-      console.log(error);
+      req.logger.error(error)
       return null;
     }
   }
@@ -23,7 +23,7 @@ export class ManagerProduct {
     try {
       return await ProductModel.find({ id: idprod }).lean();
     } catch (error) {
-      console.log(error);
+      req.logger.error(error)
       return null;
     }
   }
@@ -31,8 +31,8 @@ export class ManagerProduct {
   async addProduct(productData) {
     try { 
       const lastProduct = await productMongoDAO.get()
-      console.log(lastProduct)
-
+      
+      req.logger.info(lastProduct)
       const lastProductId = lastProduct ? lastProduct.id : 0;
       const newProductId = lastProductId + 1;
 
@@ -62,7 +62,7 @@ export class ManagerProduct {
       }
       
     } catch (error) {
-      console.error(error);
+      req.logger.error(error)
       throw new Error("Error al actualizar el producto por ID");
     }
   }
@@ -77,7 +77,7 @@ export class ManagerProduct {
         return false; // Indica que no se encontró el producto con el ID dado
       }
     } catch (error) {
-      console.error(error);
+      req.logger.error(error)
       throw new Error("Error al eliminar el producto por ID");
     }
   }
@@ -101,7 +101,7 @@ export class ManagerProduct {
               if (updatedStock<0){
                 noStock.push(product)
                 updatedStock = existingProduct.stock
-                console.log(noStock)
+                req.logger.info(noStock)
               }else{
                 productsStock.push(product)
               }
@@ -109,17 +109,17 @@ export class ManagerProduct {
               const updated = await productMongoDAO.update(productId, { stock: updatedStock });
               
               if (!updated) {
-                  console.log(`Product with ID ${productId} not found or not updated.`);
+                req.logger.info(`Product with ID ${productId} not found or not updated.`);
               }
               
           } else {
-              console.log(`Product with ID ${productId} not found in the database.`);
+            req.logger.info(`Product with ID ${productId} not found in the database.`);
           }
       }
       
       return { noStock: noStock, productsStock: productsStock }
     } catch (error) {
-        console.error("Error updating product quantities:", error);
+        req.logger.error("Error updating product quantities:", error);
         // Handle the error as needed
     }
   }

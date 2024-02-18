@@ -1,12 +1,12 @@
-console.log("hola");
+req.logger.info("hola");
 const socket = io();
 
 socket.on("connect", () => {
-  console.log("Conectado al servidor de Socket.io");
+  req.logger.info("Conectado al servidor de Socket.io");
 });
 
 socket.on("resultado", function (resultado) {
-  console.log("Received resultado:", resultado);
+  req.logger.info("Received resultado:", resultado);
 
   var realTimeProductList = document.getElementById("realTimeProductList");
 
@@ -30,8 +30,8 @@ socket.on("resultado", function (resultado) {
 });
 
 socket.on("productAdded", async (data) => {
-  console.log(data.message);
-  console.log("Nuevo producto:", data.product);
+  req.logger.info(data.message);
+  req.logger.info("Nuevo producto:", data.product);
 
   try {
     const product = await data.product;

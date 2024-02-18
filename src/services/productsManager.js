@@ -70,7 +70,7 @@ class ProductManager {
 
   getProducts() {
     /*    const lectura = fs.readFileSync(this.path, "utf-8");
-         console.log(JSON.parse(lectura));  */
+         req.logger.info(JSON.parse(lectura));  */
     return fs.readFileSync(this.path, "utf-8");
   }
 

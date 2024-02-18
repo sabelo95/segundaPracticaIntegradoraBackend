@@ -46,7 +46,7 @@ router.post("/realTimeProducts", async (req, res) => {
       product: addProduct,
     });
   } catch (error) {
-    console.error(error);
+    req.logger.error(error);
     res.status(500).json({ error: "Error al agregar el producto" });
   }
 });

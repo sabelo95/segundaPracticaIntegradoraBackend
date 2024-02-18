@@ -12,7 +12,7 @@ export class CustomError extends Error {
 
 export const trataError=(error, res)=>{
     if(error instanceof CustomError){
-        console.log(`Error (${error.codigo}) - ${error.name.trim()}:  ${error.descripcion}`)
+        req.logger.info(`Error (${error.codigo}) - ${error.name.trim()}:  ${error.descripcion}`)
         res.setHeader('Content-Type','application/json');
         return res.status(error.codigo).json({
             error:`${error.message}`,

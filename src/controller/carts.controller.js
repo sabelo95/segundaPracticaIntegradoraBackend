@@ -14,7 +14,7 @@ export class cartsController {
       const newCart = await cartManager.createCart();
       res.status(201).json(newCart);
     } catch (error) {
-      console.error(error);
+      req.logger.error(error)
       res.status(500).json({ error: "Error al crear el carrito" });
     }
   }
@@ -32,7 +32,7 @@ export class cartsController {
         res.status(200).render("carrito", { resultado, id });
       }
     } catch (error) {
-      console.error(error);
+      req.logger.error(error)
       res.status(500).json({ error: "Error al obtener el carrito" });
     }
   }
@@ -50,7 +50,7 @@ export class cartsController {
         res.status(404).json({ error: "Carrito no encontrado" });
       }
     } catch (error) {
-      console.error(error);
+      req.logger.error(error)
       res
         .status(500)
         .json({ error: "Error al agregar el producto al carrito " });
@@ -62,7 +62,7 @@ export class cartsController {
     let id = req.params.cid;
 
     const newQuantity = req.body.quantity;
-    console.log(newQuantity);
+    req.logger.info(newQuantity)
 
     try {
       if (newQuantity !== undefined && newQuantity !== null) {
@@ -88,7 +88,7 @@ export class cartsController {
           .json({ error: "La cantidad del producto no se proporcionó" });
       }
     } catch (error) {
-      console.error(error);
+      req.logger.error(error)
       res.status(500).json({ error: "Error al procesar la solicitud" });
     }
   }
@@ -109,7 +109,7 @@ export class cartsController {
         res.status(404).json({ error: "Carrito no encontrado" });
       }
     } catch (error) {
-      console.error(error);
+      req.logger.error(error);
       res.status(500).json({ error: "Error al eliminar el producto" });
     }
   }
@@ -154,7 +154,7 @@ export class cartsController {
     
     
     } catch (error) {
-      console.error(error);
+      req.logger.error(error);
       res.status(500).json({ error: "error" });
     }
   }

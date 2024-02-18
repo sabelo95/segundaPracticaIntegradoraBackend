@@ -1,14 +1,15 @@
 import mongoose from "mongoose";
 import { ProductModel } from "./models/products.model.js";
+import { logger } from "../utils/loggers.js";
 
 
 try {
     await mongoose.connect(
       "mongodb+srv://santiagoberriolopez:mecanica95@cluster0.d1pj6rg.mongodb.net/?retryWrites=true&w=majority&dbName=ecommerce"
     );
-    console.log("DB Online");
+    logger.info("DB Online");
   } catch (error) {
-    console.log(error)
+    logger.error(error)
   }
 
   export class productMongoDAO{
