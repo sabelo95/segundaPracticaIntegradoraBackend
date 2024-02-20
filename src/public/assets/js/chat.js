@@ -1,4 +1,4 @@
-req.logger.info("cargo chat.js");
+logger.info("cargo chat.js");
 const socket = io();
 let inputMensaje = document.getElementById("mensaje");
 let divMensajes = document.getElementById("mensajes");
@@ -12,7 +12,7 @@ Swal.fire({
   },
   allowOutsideClick: false,
 }).then((resultado) => {
-  req.logger.info(resultado);
+  logger.info(resultado);
   socket.emit("id", resultado.value);
   inputMensaje.focus();
   document.title = resultado.value;

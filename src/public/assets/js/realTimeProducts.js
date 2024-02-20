@@ -1,12 +1,13 @@
-req.logger.info("hola");
+import { logger } from "../../../utils/loggers.js";
+logger.info("hola");
 const socket = io();
 
 socket.on("connect", () => {
-  req.logger.info("Conectado al servidor de Socket.io");
+  logger.info("Conectado al servidor de Socket.io");
 });
 
 socket.on("resultado", function (resultado) {
-  req.logger.info("Received resultado:", resultado);
+  logger.info("Received resultado:", resultado);
 
   var realTimeProductList = document.getElementById("realTimeProductList");
 
@@ -30,8 +31,8 @@ socket.on("resultado", function (resultado) {
 });
 
 socket.on("productAdded", async (data) => {
-  req.logger.info(data.message);
-  req.logger.info("Nuevo producto:", data.product);
+  logger.info(data.message);
+  logger.info("Nuevo producto:", data.product);
 
   try {
     const product = await data.product;

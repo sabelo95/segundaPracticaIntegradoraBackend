@@ -1,1 +1,2 @@
-{"level":"info","message":"No se completo las propiedades necesarias","timestamp":"2024-02-18T23:30:05.443Z"}
+{"level":"error","message":"Este es un mensaje de error","timestamp":"2024-02-20T00:32:06.639Z"}
+{"level":"fatal","message":"Este es un mensaje fatal","timestamp":"2024-02-20T00:32:06.640Z"}

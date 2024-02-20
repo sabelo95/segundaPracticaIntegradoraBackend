@@ -104,7 +104,7 @@ export class productsController {
       });
     } catch (error) {
       // Manejar errores aquí
-      req.logger.error(error)
+      console.log(error)
       res.status(500).send("Error interno del servidor");
     }
   }

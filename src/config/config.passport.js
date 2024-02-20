@@ -4,6 +4,7 @@ import github from 'passport-github2'
 import { usuariosModelo } from '../dao/models/usuarios.modelo.js'
 import { creaHash, validaPassword } from '../utils/utils.js'
 import { config } from './config.js'
+import { logger } from '../utils/loggers.js'
 
 export const inicializarPassport=()=>{
 
@@ -13,7 +14,7 @@ export const inicializarPassport=()=>{
         },
         async(req, username, password, done)=>{
             try {
-                req.logger.info("Estrategia local registro de Passport...!!!")
+                logger.info("Estrategia local registro de Passport...!!!")
                 let {nombre,apellido, email,edad}=req.body
                 let rol = 'usuario'
                 
@@ -23,7 +24,7 @@ export const inicializarPassport=()=>{
                 }
             
                 let regMail=/^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/
-                req.logger.info(regMail.test(email))
+                logger.info(regMail.test(email))
                 if(!regMail.test(email)){
                     // return res.redirect('/registro?error=Mail con formato incorrecto...!!!')
                     return done(null, false)
@@ -37,7 +38,7 @@ export const inicializarPassport=()=>{
                 
                 // password=crypto.createHmac("sha256", "codercoder123").update(password).digest("hex")
                 password=creaHash(password)
-                req.logger.info(password)
+                logger.info(password)
                 let usuario
                 try {
                     usuario=await usuariosModelo.create({nombre,apellido, email, password,rol})
@@ -80,7 +81,7 @@ export const inicializarPassport=()=>{
                     return done(null, false)
                 }     
 
-                req.logger.info(Object.keys(usuario))
+                logger.info(Object.keys(usuario))
                 delete usuario.password
                 return done(null, usuario)
                     // previo a devolver un usuario con done, passport graba en la req, una propiedad
@@ -100,7 +101,7 @@ export const inicializarPassport=()=>{
         },
         async(accessToken, refreshToken, profile, done)=>{
             try {
-                 req.logger.info(profile)
+                 logger.info(profile)
                 let usuario=await usuariosModelo.findOne({email: profile._json.email})
                 if(!usuario){
                     let nuevoUsuario={

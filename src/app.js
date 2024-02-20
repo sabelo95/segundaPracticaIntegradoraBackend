@@ -56,6 +56,7 @@ import realTimeProducts from "./routes/liveRouter.js";
 import { router as vistasRouter } from './routes/vistas.router.js';
 import { router as sessionRouter } from './routes/session.router.js';
 import { router as mockingRouter } from "./routes/mocking.router.js";
+import { router as loggerTest } from "./routes/loggerTets.router.js";
 
 app.use(middLogg)
 app.use("/api", productRouter);
@@ -77,7 +78,9 @@ app.use('/', vistasRouter)
 app.use('/api/sessions', sessionRouter)
 
 app.use('/mockingProducts', mockingRouter)
-app.use(errorHandler)
+app.use('/loggerTest',loggerTest)
+
+/* app.use(errorHandler) */
 
 const server = app.listen(PORT, () => {
   logger.info(`Server on line en puerto ${PORT}`);
@@ -91,7 +94,7 @@ let usuarios = [];
 let mensajes = [];
 
 io.on("connection", (socket) => {
-  req.logger.info(`Se ha conectado un cliente con id ${socket.id}`);
+  logger.info(`Se ha conectado un cliente con id ${socket.id}`);
 
   socket.on("id", async (nombre) => {
     usuarios.push({ nombre, id: socket.id });
@@ -112,7 +115,7 @@ io.on("connection", (socket) => {
 
     try {
       const mensajeGuardado = await nuevoMensaje.save();
-      req.logger.info("Mensaje guardado en la base de datos:", mensajeGuardado);
+      logger.info("Mensaje guardado en la base de datos:", mensajeGuardado);
 
       io.emit("nuevoMensaje", datos);
     } catch (error) {

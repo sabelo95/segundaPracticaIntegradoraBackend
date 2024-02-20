@@ -1,3 +1,4 @@
+import { logger } from "./loggers.js";
 export class CustomError extends Error {
     constructor(nombre, mensaje, statusCode, codigoInterno, descripcion = "") {
         super(mensaje);
@@ -12,7 +13,7 @@ export class CustomError extends Error {
 
 export const trataError=(error, res)=>{
     if(error instanceof CustomError){
-        req.logger.info(`Error (${error.codigo}) - ${error.name.trim()}:  ${error.descripcion}`)
+        logger.error(`Error (${error.codigo}) - ${error.name.trim()}:  ${error.descripcion}`)
         res.setHeader('Content-Type','application/json');
         return res.status(error.codigo).json({
             error:`${error.message}`,

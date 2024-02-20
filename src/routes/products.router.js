@@ -8,13 +8,13 @@ const router = express.Router();
 
 
 
-router.get("/products", auth, productsController.getCart );
+router.get("/products",  productsController.getCart );
 
 router.get("/crudProduct", auth,authAdmin, productsController.crud )
 
 router.get("/products/:pid", auth, productsController.getOneProduct);
 
-router.post("/products",auth, productsController.postProduct);
+router.post("/products", productsController.postProduct);
 
 router.post("/productsAct",productsController.actProduct);
 

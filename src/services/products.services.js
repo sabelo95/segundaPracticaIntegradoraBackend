@@ -2,6 +2,7 @@ import { productMongoDAO } from "../dao/productsMongoDao.js";
 import { CustomError } from '../utils/CustomErrors.js';
 import { ERRORES_INTERNOS, STATUS_CODES } from '../utils/tiposError.js';
 import { errorCreaProd } from '../utils/errores.js';
+import { logger } from "../utils/loggers.js";
 
 export class ManagerProduct {
   async listarProductos(pagina, limite, sortOrder, categoria) {
@@ -10,11 +11,11 @@ export class ManagerProduct {
     }
    
     try {
-      req.logger.info(categoria)
+      logger.info(categoria)
       const query = categoria ? { category: categoria } : {};
       return productMongoDAO.getPaginate(query,limite,pagina,sortOrder)
     } catch (error) {
-      req.logger.error(error)
+      logger.error(error)
       return null;
     }
   }
@@ -23,7 +24,7 @@ export class ManagerProduct {
     try {
       return await ProductModel.find({ id: idprod }).lean();
     } catch (error) {
-      req.logger.error(error)
+      logger.error(error)
       return null;
     }
   }
@@ -32,7 +33,7 @@ export class ManagerProduct {
     try { 
       const lastProduct = await productMongoDAO.get()
       
-      req.logger.info(lastProduct)
+      logger.info(lastProduct)
       const lastProductId = lastProduct ? lastProduct.id : 0;
       const newProductId = lastProductId + 1;
 
@@ -62,7 +63,7 @@ export class ManagerProduct {
       }
       
     } catch (error) {
-      req.logger.error(error)
+      logger.error(error)
       throw new Error("Error al actualizar el producto por ID");
     }
   }
@@ -77,7 +78,7 @@ export class ManagerProduct {
         return false; // Indica que no se encontró el producto con el ID dado
       }
     } catch (error) {
-      req.logger.error(error)
+      logger.error(error)
       throw new Error("Error al eliminar el producto por ID");
     }
   }
@@ -101,7 +102,7 @@ export class ManagerProduct {
               if (updatedStock<0){
                 noStock.push(product)
                 updatedStock = existingProduct.stock
-                req.logger.info(noStock)
+                logger.info(noStock)
               }else{
                 productsStock.push(product)
               }
@@ -109,17 +110,17 @@ export class ManagerProduct {
               const updated = await productMongoDAO.update(productId, { stock: updatedStock });
               
               if (!updated) {
-                req.logger.info(`Product with ID ${productId} not found or not updated.`);
+                logger.info(`Product with ID ${productId} not found or not updated.`);
               }
               
           } else {
-            req.logger.info(`Product with ID ${productId} not found in the database.`);
+            logger.info(`Product with ID ${productId} not found in the database.`);
           }
       }
       
       return { noStock: noStock, productsStock: productsStock }
     } catch (error) {
-        req.logger.error("Error updating product quantities:", error);
+        logger.error("Error updating product quantities:", error);
         // Handle the error as needed
     }
   }
