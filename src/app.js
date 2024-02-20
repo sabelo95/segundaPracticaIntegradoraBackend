@@ -80,7 +80,7 @@ app.use('/api/sessions', sessionRouter)
 app.use('/mockingProducts', mockingRouter)
 app.use('/loggerTest',loggerTest)
 
-/* app.use(errorHandler) */
+app.use(errorHandler) 
 
 const server = app.listen(PORT, () => {
   logger.info(`Server on line en puerto ${PORT}`);
