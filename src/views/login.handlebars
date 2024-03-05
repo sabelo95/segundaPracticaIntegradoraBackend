@@ -15,4 +15,20 @@
     <br>
     <input type="submit" value="Ingresar">
 </form>
+<br>
 <a href="/api/sessions/github">Acceso con GitHub</a>
+<br>
+<h2>¿Olvidaste tu contraseña?</h2>
+<form action="/api/recovery" method="post">
+
+   
+
+    {{#if mensaje}}
+        <div style="color: green;">{{mensajeRecover}}</div>
+    {{/if}}
+    
+    <input type="email" name="email" placeholder="email">
+   
+    <br>
+    <input type="submit" value="Enviar">
+</form>

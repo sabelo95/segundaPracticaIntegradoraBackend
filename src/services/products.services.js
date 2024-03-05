@@ -1,7 +1,5 @@
 import { productMongoDAO } from "../dao/productsMongoDao.js";
-import { CustomError } from '../utils/CustomErrors.js';
-import { ERRORES_INTERNOS, STATUS_CODES } from '../utils/tiposError.js';
-import { errorCreaProd } from '../utils/errores.js';
+import { ProductModel } from "../dao/models/products.model.js";
 import { logger } from "../utils/loggers.js";
 
 export class ManagerProduct {
@@ -22,7 +20,7 @@ export class ManagerProduct {
 
   async listarProductosId(idprod) {
     try {
-      return await ProductModel.find({ id: idprod }).lean();
+      return await ProductModel.findOne({ id: idprod }).lean();
     } catch (error) {
       logger.error(error)
       return null;
@@ -44,8 +42,8 @@ export class ManagerProduct {
       return await productMongoDAO.create(productWithId)
     } catch (error) {
        
-      
-      throw CustomError.CustomError("Error", "Error al crear el producto", STATUS_CODES.ERROR_ARGUMENTOS, ERRORES_INTERNOS.ARGUMENTOS, errorCreaProd());
+      logger.error(error)
+     /*  throw CustomError.CustomError("Error", "Error al crear el producto", STATUS_CODES.ERROR_ARGUMENTOS, ERRORES_INTERNOS.ARGUMENTOS, errorCreaProd()); */
     } 
     
   }

@@ -69,7 +69,23 @@
       <label for="thumbnail">Thumbnail URL:</label>
       <input type="text" name="thumbnail" />
 
+      <label for="Owner">Ingrese su correo:</label>
+      <input type="mail" name="owner" />
+
       <button type="submit">Agregar Producto</button>
+    </form>
+
+    
+    <h1>Delete Producto</h1>
+
+    <form action="/api/delete" method="post">
+
+      <label for="ID">id:</label>
+      <input type="number" name="id"  />
+
+    
+
+      <button type="submit">Borrar Producto</button>
     </form>
 
     

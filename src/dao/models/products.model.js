@@ -38,6 +38,10 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: false,
         unique: true
+    },
+    owner: {
+        type: String, 
+        
     }
     
     

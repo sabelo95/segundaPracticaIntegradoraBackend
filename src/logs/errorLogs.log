@@ -1,2 +1,10 @@
 {"level":"error","message":"Este es un mensaje de error","timestamp":"2024-02-20T00:32:06.639Z"}
 {"level":"fatal","message":"Este es un mensaje fatal","timestamp":"2024-02-20T00:32:06.640Z"}
+{"level":"error","message":"Error (400) - Complete campos:  \nError en argumentos:\nArgumentos obligatorios: id\nrecibido {}   \n\n\nFecha: Tue, 05 Mar 2024 00:37:47 GMT\nUsuario: santi\n","timestamp":"2024-03-05T00:37:47.787Z"}
+{"level":"error","message":"Error (400) - Complete campos:  \nError en argumentos:\nArgumentos obligatorios: id\nrecibido {}   \n\n\nFecha: Tue, 05 Mar 2024 00:43:35 GMT\nUsuario: santi\n","timestamp":"2024-03-05T00:43:35.230Z"}
+{"_message":"products validation failed","errors":{"owner":{"kind":"required","message":"Path `owner` is required.","name":"ValidatorError","path":"owner","properties":{"message":"Path `owner` is required.","path":"owner","type":"required","value":""},"value":""}},"level":"error","timestamp":"2024-03-05T00:46:41.981Z"}
+{"level":"error","timestamp":"2024-03-05T01:04:33.595Z"}
+{"level":"error","timestamp":"2024-03-05T01:04:57.738Z"}
+{"level":"error","timestamp":"2024-03-05T01:05:47.411Z"}
+{"level":"error","timestamp":"2024-03-05T01:06:32.967Z"}
+{"level":"error","timestamp":"2024-03-05T01:09:10.870Z"}

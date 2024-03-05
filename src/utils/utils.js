@@ -39,3 +39,12 @@ export const authUser = (req, res, next) => {
 
   next();
 };
+
+export const authPremium = (req, res, next) => {
+  if (!(req.session.usuario.rol === "premium")) {
+    res.status(200).json({ message: "Solo los usuarios premium tienen acceso " });
+    return;
+  }
+
+  next();
+};

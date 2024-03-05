@@ -139,8 +139,11 @@ export class productsController {
 
   static async postProduct(req, res){
     try {
+
+    const profile= req.session.usuario.rol
+      
   
-    const { title, description, code, price, stock, category, thumbnail } =
+    let  { title, description, code, price, stock, category, thumbnail ,owner} =
       req.body;
 
       
@@ -150,15 +153,19 @@ export class productsController {
         throw new CustomError("Complete campos", "Falta completar los campos requeridos", STATUS_CODES.ERROR_ARGUMENTOS, ERRORES_INTERNOS.ARGUMENTOS, errorArgumentos());
     }   
    
-   
+    if (owner === null || owner === '') {
+      owner = 'admin';
+  }
+  
+  console.log('owner',owner)
     
-      const savedProduct = await productManager.addProduct(req.body);
+      const savedProduct = await productManager.addProduct({title, description, code, price, stock, category, thumbnail ,owner});
       res
         .status(201)
         .json({ message: "Producto agregado con éxito", producto: savedProduct });
     } catch (error) {
-      /* res.status(500).json({ error: error });  */
-      trataError(error, res) 
+       res.status(500).json({ error: error });  
+     console.log(error)
     }
     
   }
@@ -230,8 +237,14 @@ export class productsController {
   }
 
   static async deleteProd(req, res){
-    let id = req.params.pid;
+    let {id} = req.body;
     let idprod = parseInt(id);
+    
+    const productToDelete = await productManager.listarProductosId(idprod);
+    const owner = productToDelete.owner;
+
+    console.log(productToDelete,owner)
+
     try {
     if (isNaN(idprod)) {
       throw new CustomError("Complete campos", "Ingrese un id numerico", STATUS_CODES.ERROR_ARGUMENTOS, ERRORES_INTERNOS.ARGUMENTOS, errorArgumentosDel(req.params));
