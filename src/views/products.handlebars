@@ -71,9 +71,11 @@
           if (data.message === 'Producto agregado al carrito con éxito') {
             
             console.log('Producto agregado al carrito con éxito');
-          } else {
-            
-            console.log('Error al agregar el producto al carrito');
+          } else if (data.message === 'No puedes agregar tus propios productos al carrito') {
+             console.log('No puedes agregar tus propios productos al carrito');
+            ;
+          }else {
+            console.log('Error al agregar el producto al carrito')
           }
         })
         .catch(error => {

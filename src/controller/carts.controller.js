@@ -56,8 +56,10 @@ export class cartsController {
       console.log('mail',emailUser)  
 
       if (owner === emailUser) {
-        throw new Error("No puede agregar productos propios al carrito.");
-    } 
+         res
+          .status(200)
+          .json({ message: "No puedes agregar tus propios productos al carrito" });
+    } else {
     
       if (await cartManager.addProductToCart(id, productId)) {
         res
@@ -66,6 +68,7 @@ export class cartsController {
       } else {
         res.status(404).json({ error: "Carrito no encontrado" });
       }
+    }
     } catch (error) {
      
       res
