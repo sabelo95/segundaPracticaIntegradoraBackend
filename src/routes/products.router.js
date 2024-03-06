@@ -10,13 +10,13 @@ const router = express.Router();
 
 router.get("/products",  productsController.getCart );
 
-router.get("/crudProduct", auth,authAdmin,authPremium, productsController.crud )
+router.get("/crudProduct", auth,authAdmin, productsController.crud )
 
 router.get("/products/:pid", auth, productsController.getOneProduct);
 
 router.post("/products", productsController.postProduct);
 
-router.post("/productsAct",productsController.actProduct);
+router.post("/productsAct",authAdmin,productsController.actProduct);
 
 router.post("/delete",authAdmin, productsController.deleteProd);
 

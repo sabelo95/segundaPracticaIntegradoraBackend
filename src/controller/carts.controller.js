@@ -1,6 +1,10 @@
 import { CartManager } from "../services/carts.services.js";
 import { ManagerProduct } from "../services/products.services.js";
 import { TicketModel } from "../dao/models/ticket.model.js";
+import { CustomError , trataError} from '../utils/CustomErrors.js';
+import { ERRORES_INTERNOS, STATUS_CODES } from '../utils/tiposError.js';
+import { errorArgumentos, errorArgumentosDel } from '../utils/errores.js';
+
 
 const cartManager = new CartManager();
 const productManager = new ManagerProduct();
@@ -40,8 +44,21 @@ export class cartsController {
   static async postProductOnCart(req, res) {
     let productId = req.params.pid;
     let id = req.params.cid;
-
+    
     try {
+      
+       const product = await productManager.listarProductosIdMongo(productId);
+       console.log('producto',product)
+       const owner = product.owner;
+      
+      console.log('owner',owner)
+      let emailUser = req.session.usuario.email
+      console.log('mail',emailUser)  
+
+      if (owner === emailUser) {
+        throw new Error("No puede agregar productos propios al carrito.");
+    } 
+    
       if (await cartManager.addProductToCart(id, productId)) {
         res
           .status(200)
@@ -50,7 +67,7 @@ export class cartsController {
         res.status(404).json({ error: "Carrito no encontrado" });
       }
     } catch (error) {
-      req.logger.error(error)
+     
       res
         .status(500)
         .json({ error: "Error al agregar el producto al carrito " });
@@ -65,6 +82,17 @@ export class cartsController {
     req.logger.info(newQuantity)
 
     try {
+
+      const product = await productManager.listarProductosId(productId);
+      const owner = product.owner;
+      let emailUser = req.session.usuario.email
+      console.log('owner',owner)
+      console.log('mail',emailUser)
+
+      if (owner == emailUser) {
+        throw new CustomError("Error de permisos ", "No puede agregar productos tuyos", STATUS_CODES.ERROR_AUTENTICACION, ERRORES_INTERNOS.PERMISOS, errorArgumentosDel(req.params));
+      }
+
       if (newQuantity !== undefined && newQuantity !== null) {
         // Actualiza la cantidad del producto en el carrito
         if (

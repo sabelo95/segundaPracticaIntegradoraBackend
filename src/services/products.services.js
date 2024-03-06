@@ -20,12 +20,30 @@ export class ManagerProduct {
 
   async listarProductosId(idprod) {
     try {
-      return await ProductModel.findOne({ id: idprod }).lean();
+      const product = await ProductModel.findOne({ id: idprod }).lean();
+      if (!product) {
+        throw new Error("Producto no encontrado");
+      }
+      return product;
     } catch (error) {
-      logger.error(error)
-      return null;
+      logger.error(error);
+      
     }
   }
+
+  async listarProductosIdMongo(idprod) {
+    try {
+      const product = await ProductModel.findOne({ _id: idprod }).lean();
+      if (!product) {
+        throw new Error("Producto no encontrado");
+      }
+      return product;
+    } catch (error) {
+      logger.error(error);
+      
+    }
+  }
+  
 
   async addProduct(productData) {
     try { 

@@ -22,14 +22,13 @@ export const auth = (req, res, next) => {
 };
 
 export const authAdmin = (req, res, next) => {
- 
-
-  if (!(req.session.usuario.rol === "admin")) {
-    res.status(200).json({ message: "solo el administrador tiene acceso" });
-    return;
+  if (req.session.usuario.rol === "admin" || req.session.usuario.rol === "premium") {
+    next();
+  } else {
+    res.status(200).json({ message: "Solo el administrador o usuarios premium tienen acceso" });
   }
-  next();
 };
+
 
 export const authUser = (req, res, next) => {
   if (!(req.session.usuario.rol === "usuario")) {
@@ -41,10 +40,10 @@ export const authUser = (req, res, next) => {
 };
 
 export const authPremium = (req, res, next) => {
-  if (!(req.session.usuario.rol === "premium")) {
-    res.status(200).json({ message: "Solo los usuarios premium tienen acceso " });
-    return;
+  if (req.session.usuario.rol === "premium"){
+    next();
   }
-
-  next();
+  res.status(200).json({ message: "Solo los usuarios premium tienen acceso " });
+    return;
+ 
 };

@@ -85,7 +85,7 @@ export class productsController {
         auto = true;
       }
 
-      if (rol === "usuario") {
+      if (rol === "usuario" || rol === 'premium') {
        autoUser = true;
       }
 
@@ -140,7 +140,10 @@ export class productsController {
   static async postProduct(req, res){
     try {
 
-    const profile= req.session.usuario.rol
+      if (req.session.usuario.rol !== 'premium' && req.session.usuario.rol !== 'admin') {
+        throw new CustomError("Error de permisos", "No puede agregar ningún producto nuevo", STATUS_CODES.ERROR_AUTORIZACION, ERRORES_INTERNOS.PERMISOS, errorArgumentosDel(req.params));
+    }
+    
       
   
     let  { title, description, code, price, stock, category, thumbnail ,owner} =
@@ -237,15 +240,27 @@ export class productsController {
   }
 
   static async deleteProd(req, res){
+    
+   
+
+    try {
+
     let {id} = req.body;
     let idprod = parseInt(id);
+    let profile= req.session.usuario.rol
+    let emailUser = req.session.usuario.email
+    
     
     const productToDelete = await productManager.listarProductosId(idprod);
     const owner = productToDelete.owner;
 
-    console.log(productToDelete,owner)
-
-    try {
+    if (profile !== 'admin'){
+      if (owner !== emailUser) {
+        throw new CustomError("Error de permisos ", "No puede eliminar productos que no son suyos", STATUS_CODES.ERROR_AUTENTICACION, ERRORES_INTERNOS.PERMISOS, errorArgumentosDel(req.params));
+      }
+    }
+      
+     
     if (isNaN(idprod)) {
       throw new CustomError("Complete campos", "Ingrese un id numerico", STATUS_CODES.ERROR_ARGUMENTOS, ERRORES_INTERNOS.ARGUMENTOS, errorArgumentosDel(req.params));
     }

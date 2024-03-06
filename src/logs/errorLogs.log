@@ -8,3 +8,41 @@
 {"level":"error","timestamp":"2024-03-05T01:05:47.411Z"}
 {"level":"error","timestamp":"2024-03-05T01:06:32.967Z"}
 {"level":"error","timestamp":"2024-03-05T01:09:10.870Z"}
+{"level":"error","message":"Error (400) - Error de permisos:  \nError en argumentos:\nArgumentos obligatorios: id\nrecibido {}   \n\n\nFecha: Tue, 05 Mar 2024 22:00:05 GMT\nUsuario: santi\n","timestamp":"2024-03-05T22:00:05.102Z"}
+{"level":"error","message":"Error (401) - Error de permisos:  \nError en argumentos:\nArgumentos obligatorios: id\nrecibido {}   \n\n\nFecha: Tue, 05 Mar 2024 22:33:00 GMT\nUsuario: santi\n","timestamp":"2024-03-05T22:33:00.194Z"}
+{"level":"error","message":"Error (401) - Error de permisos:  \nError en argumentos:\nArgumentos obligatorios: id\nrecibido {}   \n\n\nFecha: Tue, 05 Mar 2024 22:33:06 GMT\nUsuario: santi\n","timestamp":"2024-03-05T22:33:06.224Z"}
+{"level":"error","message":"Error (401) - Error de permisos:  \nError en argumentos:\nArgumentos obligatorios: id\nrecibido {}   \n\n\nFecha: Tue, 05 Mar 2024 22:39:38 GMT\nUsuario: santi\n","timestamp":"2024-03-05T22:39:38.800Z"}
+{"level":"error","message":"Error (401) - Error de permisos:  \nError en argumentos:\nArgumentos obligatorios: id\nrecibido {}   \n\n\nFecha: Tue, 05 Mar 2024 22:39:46 GMT\nUsuario: santi\n","timestamp":"2024-03-05T22:39:46.275Z"}
+{"level":"error","message":"Error (401) - Error de permisos:  \nError en argumentos:\nArgumentos obligatorios: id\nrecibido {}   \n\n\nFecha: Tue, 05 Mar 2024 22:44:23 GMT\nUsuario: santi\n","timestamp":"2024-03-05T22:44:23.036Z"}
+{"level":"error","message":"Error (401) - Error de permisos:  \nError en argumentos:\nArgumentos obligatorios: id\nrecibido {}   \n\n\nFecha: Tue, 05 Mar 2024 22:44:43 GMT\nUsuario: santi\n","timestamp":"2024-03-05T22:44:43.301Z"}
+{"level":"error","timestamp":"2024-03-05T23:19:05.667Z"}
+{"kind":"Number","level":"error","path":"id","reason":{"actual":false,"code":"ERR_ASSERTION","expected":true,"generatedMessage":true,"operator":"=="},"stringValue":"\"65e7ace924a5b56ad987ad2d\"","timestamp":"2024-03-05T23:47:23.700Z","value":"65e7ace924a5b56ad987ad2d","valueType":"string"}
+{"level":"error","timestamp":"2024-03-05T23:47:23.701Z"}
+{"kind":"Number","level":"error","path":"id","reason":{"actual":false,"code":"ERR_ASSERTION","expected":true,"generatedMessage":true,"operator":"=="},"stringValue":"\"65e7ace924a5b56ad987ad2d\"","timestamp":"2024-03-05T23:47:38.491Z","value":"65e7ace924a5b56ad987ad2d","valueType":"string"}
+{"level":"error","timestamp":"2024-03-05T23:47:38.491Z"}
+{"kind":"Number","level":"error","path":"id","reason":{"actual":false,"code":"ERR_ASSERTION","expected":true,"generatedMessage":true,"operator":"=="},"stringValue":"\"65e7ace924a5b56ad987ad2d\"","timestamp":"2024-03-05T23:47:50.877Z","value":"65e7ace924a5b56ad987ad2d","valueType":"string"}
+{"level":"error","timestamp":"2024-03-05T23:47:50.878Z"}
+{"kind":"Number","level":"error","path":"id","reason":{"actual":false,"code":"ERR_ASSERTION","expected":true,"generatedMessage":true,"operator":"=="},"stringValue":"\"65e7ace924a5b56ad987ad2d\"","timestamp":"2024-03-05T23:48:43.895Z","value":"65e7ace924a5b56ad987ad2d","valueType":"string"}
+{"level":"error","timestamp":"2024-03-05T23:48:43.895Z"}
+{"kind":"Number","level":"error","path":"id","reason":{"actual":false,"code":"ERR_ASSERTION","expected":true,"generatedMessage":true,"operator":"=="},"stringValue":"\"65e7ace924a5b56ad987ad2d\"","timestamp":"2024-03-05T23:49:08.681Z","value":"65e7ace924a5b56ad987ad2d","valueType":"string"}
+{"level":"error","timestamp":"2024-03-05T23:49:08.682Z"}
+{"kind":"Number","level":"error","path":"id","reason":{"actual":false,"code":"ERR_ASSERTION","expected":true,"generatedMessage":true,"operator":"=="},"stringValue":"\"65e7ace924a5b56ad987ad2d\"","timestamp":"2024-03-05T23:51:56.879Z","value":"65e7ace924a5b56ad987ad2d","valueType":"string"}
+{"level":"error","timestamp":"2024-03-05T23:51:56.881Z"}
+{"kind":"Number","level":"error","path":"id","reason":{"actual":false,"code":"ERR_ASSERTION","expected":true,"generatedMessage":true,"operator":"=="},"stringValue":"\"65e7ace924a5b56ad987ad2d\"","timestamp":"2024-03-05T23:52:53.429Z","value":"65e7ace924a5b56ad987ad2d","valueType":"string"}
+{"kind":"Number","level":"error","path":"id","reason":{"actual":false,"code":"ERR_ASSERTION","expected":true,"generatedMessage":true,"operator":"=="},"stringValue":"\"65e7ace924a5b56ad987ad2d\"","timestamp":"2024-03-05T23:56:13.853Z","value":"65e7ace924a5b56ad987ad2d","valueType":"string"}
+{"kind":"Number","level":"error","path":"id","reason":{"actual":false,"code":"ERR_ASSERTION","expected":true,"generatedMessage":true,"operator":"=="},"stringValue":"\"65e7ace924a5b56ad987ad2d\"","timestamp":"2024-03-05T23:56:46.561Z","value":"65e7ace924a5b56ad987ad2d","valueType":"string"}
+{"level":"error","timestamp":"2024-03-05T23:56:46.562Z"}
+{"kind":"Number","level":"error","path":"id","reason":{"actual":false,"code":"ERR_ASSERTION","expected":true,"generatedMessage":true,"operator":"=="},"stringValue":"\"65e7ace924a5b56ad987ad2d\"","timestamp":"2024-03-06T00:00:27.837Z","value":"65e7ace924a5b56ad987ad2d","valueType":"string"}
+{"level":"error","timestamp":"2024-03-06T00:00:27.839Z"}
+{"kind":"Number","level":"error","path":"id","reason":{"actual":false,"code":"ERR_ASSERTION","expected":true,"generatedMessage":true,"operator":"=="},"stringValue":"\"65e7ace924a5b56ad987ad2d\"","timestamp":"2024-03-06T00:02:59.435Z","value":"65e7ace924a5b56ad987ad2d","valueType":"string"}
+{"kind":"Number","level":"error","path":"id","reason":{"actual":false,"code":"ERR_ASSERTION","expected":true,"generatedMessage":true,"operator":"=="},"stringValue":"\"65e7ace924a5b56ad987ad2d\"","timestamp":"2024-03-06T00:03:25.807Z","value":"65e7ace924a5b56ad987ad2d","valueType":"string"}
+{"level":"error","timestamp":"2024-03-06T00:03:25.808Z"}
+{"kind":"Number","level":"error","path":"id","reason":{"actual":false,"code":"ERR_ASSERTION","expected":true,"generatedMessage":true,"operator":"=="},"stringValue":"\"65e7ace924a5b56ad987ad2d\"","timestamp":"2024-03-06T00:03:29.061Z","value":"65e7ace924a5b56ad987ad2d","valueType":"string"}
+{"level":"error","timestamp":"2024-03-06T00:03:29.063Z"}
+{"kind":"Number","level":"error","path":"id","reason":{"actual":false,"code":"ERR_ASSERTION","expected":true,"generatedMessage":true,"operator":"=="},"stringValue":"\"65e7ace924a5b56ad987ad2d\"","timestamp":"2024-03-06T00:03:50.018Z","value":"65e7ace924a5b56ad987ad2d","valueType":"string"}
+{"level":"error","timestamp":"2024-03-06T00:04:37.908Z"}
+{"level":"error","timestamp":"2024-03-06T00:05:40.185Z"}
+{"level":"error","timestamp":"2024-03-06T00:08:27.297Z"}
+{"codigo":401,"codigoInterno":300,"descripcion":"\nError en argumentos:\nArgumentos obligatorios: id\nrecibido {\"cid\":\"65e7b0198540b1b1631a0a05\",\"pid\":\"65e7ace924a5b56ad987ad2d\"}   \n\n\nFecha: Wed, 06 Mar 2024 00:09:29 GMT\nUsuario: santi\n","level":"error","name":"Error de permisos ","timestamp":"2024-03-06T00:09:29.048Z"}
+{"level":"error","message":"Error (401) - Error de permisos:  \nError en argumentos:\nArgumentos obligatorios: id\nrecibido {\"cid\":\"65e7b0198540b1b1631a0a05\",\"pid\":\"65e7ace924a5b56ad987ad2d\"}   \n\n\nFecha: Wed, 06 Mar 2024 00:10:15 GMT\nUsuario: santi\n","timestamp":"2024-03-06T00:10:15.804Z"}
+{"level":"error","message":"Error (401) - Error de permisos:  \nError en argumentos:\nArgumentos obligatorios: id\nrecibido {\"cid\":\"65e7b0198540b1b1631a0a05\",\"pid\":\"65e7ace924a5b56ad987ad2d\"}   \n\n\nFecha: Wed, 06 Mar 2024 00:10:47 GMT\nUsuario: santi\n","timestamp":"2024-03-06T00:10:47.717Z"}
