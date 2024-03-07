@@ -58,6 +58,7 @@ import { router as sessionRouter } from './routes/session.router.js';
 import { router as mockingRouter } from "./routes/mocking.router.js";
 import { router as loggerTest } from "./routes/loggerTets.router.js";
 import { router as recovery } from "./routes/recovery.router.js";
+import { router as users } from "./routes/users.router.js";
 
 app.use(middLogg)
 app.use("/api", productRouter);
@@ -81,6 +82,7 @@ app.use('/api/sessions', sessionRouter)
 app.use('/mockingProducts', mockingRouter)
 app.use('/loggerTest',loggerTest)
 app.use('/api/recovery', recovery)
+app.use('/api/users', users)
 
 app.use(errorHandler) 
 

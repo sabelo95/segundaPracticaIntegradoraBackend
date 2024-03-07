@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambiar Rol de Usuario</title>
+</head>
+<body>
+    <h1>Cambiar Rol de Usuario</h1>
+    <h2>{{uid}}</h2>
+    <form action="/api/users/premium/{{uid}}" method="POST">
+        <label for="rol">Seleccionar nuevo rol:</label>
+        <select id="rol" name="rol">
+            <option value="user">Usuario</option>
+            <option value="premium">Premium</option>
+        </select>
+        <button type="submit">Cambiar Rol</button>
+    </form>
+</body>
+</html>

@@ -36,8 +36,7 @@ const transport=nodemailer.createTransport(
                   to: req.body.email,
                   subject: "Recuperar contraseña",
                   html:`Hola. Ha solicitado reiniciar... 
-                  Haga click en el siguiente link: <a href="http://localhost:8080/api/recovery/recupero02?token=${token}">Resetear Contraseña</a>
-                  Si no genero un reseteto... `,
+                  Haga click en el siguiente link: <a href="http://localhost:8080/api/recovery/recupero02?token=${token}">Resetear Contraseña</a>`,
               });
           };
   
@@ -57,7 +56,9 @@ const transport=nodemailer.createTransport(
           console.log(error.message);
           return res.status(404).json({ error: error.message });
       }
-  });
+  }); 
+
+ 
 
   router.get("/recupero02",(req,res)=>{
       let {token}=req.query
@@ -67,7 +68,11 @@ const transport=nodemailer.createTransport(
           res.redirect("http://localhost:8080/recupero02.html?token="+token)
       } catch (error) {
           
-          res.redirect("http://localhost:8080/index.html?mensaje=Error token:"+error.message)
+          
+        res.status(200).render("login", {
+            mensaje: 'el token a experidado, vuelve a intentarlo',
+            
+          })
   
       }
   })
@@ -77,7 +82,7 @@ const transport=nodemailer.createTransport(
   
       if(password!==password2){
           res.setHeader('Content-Type','application/json');
-          return res.status(400).json({error:`Claves difieren...!!!`})
+          return res.status(400).json({error:`Claves difierentes!!!`})
       }
   
       try {

@@ -13,22 +13,33 @@ const productManager = new ManagerProduct();
 
 export class productsController {
   constructor() {}
-
+  
+  static count= 0
   static async getCart(req, res) {
     try {
+      
+      
+     let updateUsuario
 
+     if ( productsController.count <1){
       
       let userCar = req.user._id;
       const newCart = await cartManager.createCart(userCar);
       req.logger.info(`carrito nuevo ${newCart}`)
 
-      let updateUsuario = await usuariosModelo.findOne({
+       updateUsuario = await usuariosModelo.findOne({
         email: req.session.usuario.email,
       });
 
       updateUsuario.car =  await newCart._id;
       await updateUsuario.save();
- 
+      
+    } 
+
+    if (req.session) {
+      productsController.count = 1 
+  }
+  
       
       updateUsuario = await usuariosModelo.findOne({ email: req.session.usuario.email }).lean()
 

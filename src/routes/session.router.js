@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import passport from 'passport';
 import { UsuariosReadDTO } from '../config/usuarioDTO.js';
+import { productsController } from "../controller/products.controller.js";
 export const router=Router()
 
 router.get('/errorLogin',(req,res)=>{
@@ -54,7 +55,7 @@ router.get('/logout',(req,res)=>{
             res.redirect('/login?error=fallo en el logout')
         }
     })
-
+    productsController.count = 0
     res.redirect('/login')
 
 });
