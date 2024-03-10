@@ -1,0 +1,120 @@
+openapi: 3.0.0
+info:
+  title: API de Gestión de Productos
+  version: 1.0.0
+  description: Documentación de la API para gestionar productos.
+paths:
+  /api/products:
+    get:
+      summary: Obtener el carrito de compras
+      description: Obtiene el carrito de compras del usuario.
+      responses:
+        '200':
+          description: Éxito al obtener el carrito.
+          content:
+            application/json:
+              example:
+                resultado: [producto1, producto2, producto3]
+                totalPages: 5
+                hasNextPage: true
+                hasPrevPage: false
+                prevPage: null
+                nextPage: 2
+    post:
+      summary: Agregar un nuevo producto
+      description: Agrega un nuevo producto al sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                code:
+                  type: string
+                price:
+                  type: number
+                stock:
+                  type: integer
+                category:
+                  type: string
+                thumbnail:
+                  type: string
+                owner:
+                  type: string
+      responses:
+        '201':
+          description: Producto agregado con éxito.
+  /api/products/{pid}:
+    get:
+      summary: Obtener un producto por su ID
+      description: Obtiene un producto específico por su ID.
+      parameters:
+        - in: path
+          name: pid
+          description: ID del producto a obtener.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Éxito al obtener el producto.
+  /api/crudProduct:
+    get:
+      summary: Página de administración de productos
+      description: Renderiza la página de administración de productos.
+      responses:
+        '200':
+          description: Éxito al renderizar la página.
+  /api/productsAct:
+    post:
+      summary: Actualizar un producto
+      description: Actualiza un producto existente en el sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                title:
+                  type: string
+                description:
+                  type: string
+                code:
+                  type: string
+                price:
+                  type: number
+                stock:
+                  type: integer
+                category:
+                  type: string
+                estado:
+                  type: boolean
+                thumbnail:
+                  type: string
+      responses:
+        '200':
+          description: Producto actualizado con éxito.
+  /api/delete:
+    post:
+      summary: Eliminar un producto
+      description: Elimina un producto existente del sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+      responses:
+        '200':
+          description: Producto eliminado con éxito.

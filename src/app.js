@@ -14,6 +14,8 @@ import { authUser } from "./utils/utils.js";
 import { errorHandler } from './middlewares/errorHandler.js';
 import { middLogg } from "./utils/loggers.js";
 import { logger } from "./utils/loggers.js";
+import swaggerJsdoc from 'swagger-jsdoc'
+import swaggerUi from 'swagger-ui-express'
 
 
 const PORT = 8080;
@@ -22,6 +24,22 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
+
+const options={
+  definition:{
+      openapi:"3.0.0",
+      info:{
+          title: "API",
+          version: "1.0.0",
+          description: "Documentación API Eccomerce"
+      }
+  },
+  apis: ["./src/docs/*.yaml"]
+}
+
+const specs=swaggerJsdoc(options)
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs))
+
 
 app.use(sessions(
   {

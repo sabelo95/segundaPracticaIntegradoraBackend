@@ -1,0 +1,116 @@
+openapi: 3.0.0
+info:
+  title: API de Gestión de Carritos
+  version: 1.0.0
+  description: Documentación de la API para gestionar carritos de compras.
+paths:
+  /api/carts:
+    post:
+      summary: Crear un nuevo carrito
+      description: Crea un nuevo carrito de compras.
+      responses:
+        '201':
+          description: Carrito creado con éxito.
+    get:
+      summary: Obtener un carrito específico
+      description: Obtiene un carrito de compras específico.
+      responses:
+        '200':
+          description: Éxito al obtener el carrito.
+  /api/carts/{cid}:
+    get:
+      summary: Obtener los detalles de un carrito
+      description: Obtiene los detalles de un carrito específico por su ID.
+      parameters:
+        - in: path
+          name: cid
+          description: ID del carrito a obtener.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Éxito al obtener los detalles del carrito.
+  /api/carts/{cid}/addproduct/{pid}:
+    post:
+      summary: Agregar un producto al carrito
+      description: Agrega un producto al carrito específico.
+      parameters:
+        - in: path
+          name: cid
+          description: ID del carrito al que se agregará el producto.
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: pid
+          description: ID del producto que se agregará al carrito.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Producto agregado al carrito con éxito.
+  /api/carts/{cid}/product/{pid}:
+    post:
+      summary: Actualizar la cantidad de un producto en el carrito
+      description: Actualiza la cantidad de un producto en el carrito específico.
+      parameters:
+        - in: path
+          name: cid
+          description: ID del carrito al que pertenece el producto.
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: pid
+          description: ID del producto cuya cantidad se actualizará.
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                  example: 5
+      responses:
+        '200':
+          description: Cantidad del producto actualizada con éxito.
+    delete:
+      summary: Eliminar un producto del carrito
+      description: Elimina un producto del carrito específico.
+      parameters:
+        - in: path
+          name: cid
+          description: ID del carrito del que se eliminará el producto.
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: pid
+          description: ID del producto que se eliminará del carrito.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Producto eliminado del carrito con éxito.
+  /api/carts/{cid}/purchase:
+    get:
+      summary: Generar un ticket de compra
+      description: Genera un ticket de compra para el carrito especificado.
+      parameters:
+        - in: path
+          name: cid
+          description: ID del carrito para el cual se generará el ticket.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Ticket de compra generado con éxito.
