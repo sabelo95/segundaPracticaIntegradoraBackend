@@ -15,17 +15,17 @@ const auth = (req, res, next) => {
   next();
 };
 
-router.post("/",auth, cartsController.postCarts);
+router.post("/", cartsController.postCarts);
 // Ruta para listar los productos de un carrito específico
-router.get("/:cid", auth, cartsController.getOneCart);
+router.get("/:cid",  cartsController.getOneCart);
 // Ruta para agregar un producto a un carrito específico
 router.post("/:cid/addproduct/:pid",auth, cartsController.postProductOnCart);
 
-router.get("/:cid/purchase", auth, cartsController.generateTicket)
+router.get("/:cid/purchase",  cartsController.generateTicket)
 // ruta para actualizar cantidades de producto
-router.post("/:cid/product/:pid",auth, cartsController.postProductOnCartAct);
+router.post("/:cid/product/:pid", cartsController.postProductOnCartAct);
 
-router.delete("/:cid/product/:pid",auth, cartsController.deleteCart);
+router.delete("/:cid/product/:pid", cartsController.deleteCart);
 
 
 

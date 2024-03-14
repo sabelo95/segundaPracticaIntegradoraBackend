@@ -8,26 +8,25 @@ paths:
     post:
       summary: Crear un nuevo carrito
       description: Crea un nuevo carrito de compras.
+      tags:
+        - carts
       responses:
         '201':
           description: Carrito creado con éxito.
-    get:
-      summary: Obtener un carrito específico
-      description: Obtiene un carrito de compras específico.
-      responses:
-        '200':
-          description: Éxito al obtener el carrito.
+    
   /api/carts/{cid}:
     get:
       summary: Obtener los detalles de un carrito
       description: Obtiene los detalles de un carrito específico por su ID.
+      tags:
+        - carts
       parameters:
         - in: path
           name: cid
           description: ID del carrito a obtener.
           required: true
           schema:
-            type: integer
+            type: string
       responses:
         '200':
           description: Éxito al obtener los detalles del carrito.
@@ -35,13 +34,15 @@ paths:
     post:
       summary: Agregar un producto al carrito
       description: Agrega un producto al carrito específico.
+      tags:
+        - carts
       parameters:
         - in: path
           name: cid
           description: ID del carrito al que se agregará el producto.
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: pid
           description: ID del producto que se agregará al carrito.
@@ -55,13 +56,15 @@ paths:
     post:
       summary: Actualizar la cantidad de un producto en el carrito
       description: Actualiza la cantidad de un producto en el carrito específico.
+      tags:
+        - carts
       parameters:
         - in: path
           name: cid
           description: ID del carrito al que pertenece el producto.
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: pid
           description: ID del producto cuya cantidad se actualizará.
@@ -84,13 +87,15 @@ paths:
     delete:
       summary: Eliminar un producto del carrito
       description: Elimina un producto del carrito específico.
+      tags:
+        - carts
       parameters:
         - in: path
           name: cid
           description: ID del carrito del que se eliminará el producto.
           required: true
           schema:
-            type: integer
+            type: string
         - in: path
           name: pid
           description: ID del producto que se eliminará del carrito.
@@ -104,6 +109,8 @@ paths:
     get:
       summary: Generar un ticket de compra
       description: Genera un ticket de compra para el carrito especificado.
+      tags:
+        - carts
       parameters:
         - in: path
           name: cid
