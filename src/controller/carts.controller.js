@@ -15,7 +15,7 @@ export class cartsController {
     /* const newCart = cartManager.createCart();
         res.status(201).json(newCart); */
     try {
-      const newCart = await cartManager.createCart();
+      const newCart = await cartManager.createCart(userCar);
       res.status(201).json(newCart);
     } catch (error) {
       req.logger.error(error)

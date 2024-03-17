@@ -48,3 +48,7 @@
 {"level":"error","message":"Error (401) - Error de permisos:  \nError en argumentos:\nArgumentos obligatorios: id\nrecibido {\"cid\":\"65e7b0198540b1b1631a0a05\",\"pid\":\"65e7ace924a5b56ad987ad2d\"}   \n\n\nFecha: Wed, 06 Mar 2024 00:10:47 GMT\nUsuario: santi\n","timestamp":"2024-03-06T00:10:47.717Z"}
 {"level":"error","message":"Error (401) - Error de permisos:  \nError en argumentos:\nArgumentos obligatorios: id\nrecibido {}   \n\n\nFecha: Thu, 07 Mar 2024 00:14:39 GMT\nUsuario: santi\n","timestamp":"2024-03-07T00:14:39.060Z"}
 {"kind":"ObjectId","level":"error","path":"_id","reason":{},"stringValue":"\"1\"","timestamp":"2024-03-13T23:34:29.198Z","value":"1","valueType":"string"}
+{"level":"error","timestamp":"2024-03-17T16:21:34.666Z"}
+{"level":"error","timestamp":"2024-03-17T16:21:34.780Z"}
+{"kind":"ObjectId","level":"error","path":"_id","reason":{},"stringValue":"\"1\"","timestamp":"2024-03-17T16:25:16.106Z","value":"1","valueType":"string"}
+{"level":"error","timestamp":"2024-03-17T16:50:50.075Z"}

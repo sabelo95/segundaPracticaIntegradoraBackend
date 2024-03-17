@@ -69,14 +69,14 @@ export class ManagerProduct {
   async updateProductById(id, updatedFields) {
     try {
       const result = await productMongoDAO.update(id,updatedFields)
-
-      if (result.modifiedCount !== undefined) {
+      return true
+      /* if (result.modifiedCount !== undefined) {
         if (result.modifiedCount > 0) {
           return true; // Indica que al menos un documento fue modificado
         } else {
           return false; // Indica que no se encontró el producto con el ID dado
         }
-      }
+      } */
       
     } catch (error) {
       logger.error(error)

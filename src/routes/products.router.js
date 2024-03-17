@@ -16,7 +16,7 @@ router.get("/products/:pid",  productsController.getOneProduct);
 
 router.post("/products", productsController.postProduct);
 
-router.post("/productsAct",authAdmin,productsController.actProduct);
+router.post("/productsAct",productsController.actProduct);
 
 router.post("/delete",authAdmin, productsController.deleteProd);
 
