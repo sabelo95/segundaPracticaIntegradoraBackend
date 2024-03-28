@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Documentos</title>
+</head>
+<body>
+    <h1>Subir Documentos</h1>
+    <h2>Por favor carga los siguientes documentos: identificación, comprobante de domicilio y comprobante de estado de cuenta; recuerda
+        marcarlos con esos nombres sin dejar ningun espacio.
+    </h2>
+    <form action="/api/users/{{id}}/documents" method="post" enctype="multipart/form-data">
+        <input type="file" name="perfil" multiple />
+        <input type="submit" value="Upload">
+</body>
+</html>

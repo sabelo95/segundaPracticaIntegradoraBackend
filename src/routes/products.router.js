@@ -8,16 +8,16 @@ const router = express.Router();
 
 
 
-router.get("/products",  productsController.getCart );
+router.get("/products", auth,productsController.getCart );
 
-router.get("/crudProduct",authAdmin, productsController.crud )
+router.get("/crudProduct",authAdmin,auth,authPremium, productsController.crud )
 
-router.get("/products/:pid",  productsController.getOneProduct);
+router.get("/products/:pid", auth, productsController.getOneProduct);
 
-router.post("/products", productsController.postProduct);
+router.post("/products",auth, productsController.postProduct);
 
-router.post("/productsAct",productsController.actProduct);
+router.post("/productsAct",auth,productsController.actProduct);
 
-router.post("/delete",authAdmin, productsController.deleteProd);
+router.post("/delete",authAdmin,authPremium, productsController.deleteProd);
 
 export default router;

@@ -71,7 +71,9 @@ export const inicializarPassport=()=>{
             
                 // password=crypto.createHmac("sha256", "codercoder123").update(password).digest("hex")
             
-                let usuario=await usuariosModelo.findOne({email:username}).lean()
+                let usuario=await usuariosModelo.findOne({email:username})
+                usuario.last_connection = new Date();
+                await usuario.save()
                 if(!usuario){
                     // return res.redirect(`/login?error=credenciales incorrectas`)
                     return done(null, false)

@@ -2,6 +2,7 @@ import { Router } from 'express';
 import passport from 'passport';
 import { UsuariosReadDTO } from '../config/usuarioDTO.js';
 import { productsController } from "../controller/products.controller.js";
+import { usuariosModelo } from '../dao/models/usuarios.modelo.js';
 export const router=Router()
 
 router.get('/errorLogin',(req,res)=>{
@@ -48,7 +49,11 @@ router.get('/errorGithub',(req,res)=>{
     });
 });
 
-router.get('/logout',(req,res)=>{
+router.get('/logout',async(req,res)=>{
+    
+    let usuario=await usuariosModelo.findOne({email:req.user.email})
+    usuario.last_connection = new Date();
+    await usuario.save()
     
     req.session.destroy(error=>{
         if(error){
