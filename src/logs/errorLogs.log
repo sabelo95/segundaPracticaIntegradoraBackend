@@ -52,3 +52,7 @@
 {"level":"error","timestamp":"2024-03-17T16:21:34.780Z"}
 {"kind":"ObjectId","level":"error","path":"_id","reason":{},"stringValue":"\"1\"","timestamp":"2024-03-17T16:25:16.106Z","value":"1","valueType":"string"}
 {"level":"error","timestamp":"2024-03-17T16:50:50.075Z"}
+{"level":"error","message":"Error (401) - Error de permisos:  \nError en argumentos:\nArgumentos obligatorios: id\nrecibido {}   \n\n\nFecha: Fri, 29 Mar 2024 12:59:30 GMT\nUsuario: santi\n","timestamp":"2024-03-29T12:59:30.494Z"}
+{"level":"error","message":"Error (401) - Error de permisos:  \nError en argumentos:\nArgumentos obligatorios: id\nrecibido {}   \n\n\nFecha: Fri, 29 Mar 2024 22:53:34 GMT\nUsuario: santi\n","timestamp":"2024-03-29T22:53:34.987Z"}
+{"level":"error","message":"Error (401) - Error de permisos:  \nError en argumentos:\nArgumentos obligatorios: id\nrecibido {}   \n\n\nFecha: Fri, 29 Mar 2024 22:56:27 GMT\nUsuario: santi\n","timestamp":"2024-03-29T22:56:27.153Z"}
+{"level":"error","message":"Error (401) - Error de permisos:  \nError en argumentos:\nArgumentos obligatorios: id\nrecibido {}   \n\n\nFecha: Fri, 29 Mar 2024 23:47:18 GMT\nUsuario: santi\n","timestamp":"2024-03-29T23:47:18.499Z"}

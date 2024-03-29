@@ -84,6 +84,11 @@ router.post('/premium/:uid',async (req,res)=>{
             return res.status(404).send("Usuario no encontrado");
         }
 
+          
+        if (rol == "premium") {
+           
+       
+
              // Verificar si los documentos requeridos están presentes
              const documentosRequeridos = ['identificacion', 'domicilio', 'estado'];
 
@@ -95,7 +100,7 @@ router.post('/premium/:uid',async (req,res)=>{
              if (documentosFaltantes.length > 0) {
                 return res.status(400).send(`Faltan los siguientes documentos: ${documentosFaltantes.join(', ')}`);
             }
-
+        }
 
 
         updateUsuario.rol = rol;
