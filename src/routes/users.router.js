@@ -39,7 +39,8 @@ router.post('/:uid/documents', upload.array('perfil'), async (req, res) => {
 
     usuario.documentos = documentos.map(doc => ({
         name: doc.originalname,
-        reference : `./src/uploaf/documents${doc.originalname}`
+        reference : `./src/upload/documents/${doc.fieldname}-${userId}-${doc.originalname}`
+
         
     }));
     await usuario.save();
